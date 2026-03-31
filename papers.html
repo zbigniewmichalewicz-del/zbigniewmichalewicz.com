@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selected Papers — Zbigniew Michalewicz</title>
+  <style>
+    :root {
+      --navy:#0f2040; --teal:#0e7c7b; --teal-l:#12a09e;
+      --gold:#c9972c; --light:#f7f8fa; --gray:#5a6475;
+      --border:#dde3ec; --white:#ffffff; --radius:8px;
+      --shadow:0 4px 20px rgba(15,32,64,.09);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Georgia','Times New Roman',serif;font-size:16px;line-height:1.75;color:#1a2235;background:var(--light)}
+    a{color:var(--teal);text-decoration:none}
+    a:hover{color:var(--teal-l);text-decoration:underline}
+
+    nav{position:sticky;top:0;z-index:100;background:var(--navy);box-shadow:0 2px 12px rgba(0,0,0,.25)}
+    nav .inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px}
+    nav .brand{color:#fff;font-size:14px;font-style:italic}
+    nav ul{list-style:none;display:flex;gap:4px;flex-wrap:wrap}
+    nav ul a{color:rgba(255,255,255,.82);font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;padding:5px 10px;border-radius:4px;transition:background .18s}
+    nav ul a:hover{background:rgba(255,255,255,.13);color:#fff;text-decoration:none}
+
+    .hero{background:linear-gradient(135deg,var(--navy) 0%,#1b3a5c 100%);color:#fff;padding:52px 24px 44px;text-align:center}
+    .hero h1{font-size:2.1rem;font-weight:normal;margin-bottom:10px}
+    .hero p{color:rgba(255,255,255,.72);font-size:.97rem;max-width:640px;margin:0 auto}
+
+    /* Filter bar */
+    .filter-bar{background:var(--white);border-bottom:1px solid var(--border);padding:14px 24px;position:sticky;top:52px;z-index:90}
+    .filter-bar .inner-f{max-width:1100px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .filter-bar span{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:var(--gray);margin-right:4px}
+    .filter-btn{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:600;color:var(--gray);padding:4px 12px;border:1.5px solid var(--border);border-radius:20px;cursor:pointer;background:#fff;transition:all .18s}
+    .filter-btn:hover,.filter-btn.active{border-color:var(--teal);color:var(--teal);background:#f0fafa}
+
+    .content{max-width:1100px;margin:0 auto;padding:32px 24px 64px}
+
+    /* Section heading */
+    .era-heading{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gray);margin:36px 0 14px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+
+    /* Paper row */
+    .paper{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid var(--border)}
+    .paper:last-child{border-bottom:none}
+    .paper-num{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:var(--gray);text-align:right;padding-top:2px}
+    .paper-body{font-size:.94rem;line-height:1.65;color:#2a3448}
+    .paper-body .paper-title{font-weight:bold;color:var(--navy)}
+    .paper-body .paper-venue{font-style:italic;color:var(--gray);font-size:.88rem;margin-top:3px}
+    .paper-tag{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;margin-top:3px;align-self:start}
+    .tag-journal{background:#dff5f0;color:#0a6b5e}
+    .tag-conf{background:#e8edf7;color:#1d3a7a}
+    .tag-book{background:#fdf3dc;color:#8a5f00}
+
+    .pdf-link{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:600;color:var(--teal);white-space:nowrap;margin-top:4px;display:inline-block}
+    .pdf-link:hover{color:var(--teal-l)}
+
+    footer{background:var(--navy);color:rgba(255,255,255,.65);text-align:center;padding:28px 24px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:.82rem;line-height:1.8}
+    footer a{color:var(--teal-l)}
+
+    @media(max-width:640px){
+      .paper{grid-template-columns:32px 1fr}
+      .paper-tag{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <span class="brand">Prof. Zbigniew Michalewicz</span>
+    <ul>
+      <li><a href="index.html">← Home</a></li>
+      <li><a href="talks.html">Talks</a></li>
+      <li><a href="index.html#books">Books</a></li>
+      <li><a href="ZM.pdf" target="_blank">CV ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Selected Papers</h1>
+  <p>62 selected publications spanning evolutionary computation, constrained optimisation, particle swarm, puzzle-based learning, and AI for business — 1993 to 2023.</p>
+</div>
+
+<div class="filter-bar">
+  <div class="inner-f">
+    <span>Filter:</span>
+    <button class="filter-btn active" onclick="filter('all',this)">All</button>
+    <button class="filter-btn" onclick="filter('journal',this)">Journals</button>
+    <button class="filter-btn" onclick="filter('conf',this)">Conferences</button>
+    <button class="filter-btn" onclick="filter('book',this)">Book Chapters</button>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="era-heading">1993 – 1999 · Foundations of Evolutionary Computation</div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">1</span>
+    <div class="paper-body">
+      Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p4.pdf">A Hierarchy of Evolution Programs: An Experimental Study</a></span>
+      <div class="paper-venue">Evolutionary Computation, Vol.1, No.1, 1993, pp.51–76</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/p4.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">2</span>
+    <div class="paper-body">
+      Michalewicz, Z., Logan, T.D., and Swaminathan, S.
+      <span class="paper-title"><a href="Papers/p1.pdf">Evolutionary Operators for Continuous Convex Parameter Spaces</a></span>
+      <div class="paper-venue">Proc. 3rd Annual Conference on Evolutionary Programming, World Scientific, 1994, pp.84–97</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p1.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">3</span>
+    <div class="paper-body">
+      Michalewicz, Z. and Attia, N.
+      <span class="paper-title"><a href="Papers/p2.pdf">Evolutionary Optimization of Constrained Problems</a></span>
+      <div class="paper-venue">Proc. 3rd Annual Conference on Evolutionary Programming, World Scientific, 1994, pp.98–108</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p2.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">4</span>
+    <div class="paper-body">
+      Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p6.pdf">Evolutionary Computation Techniques for Nonlinear Programming Problems</a></span>
+      <div class="paper-venue">International Transactions in Operational Research, Vol.1, No.2, 1994, pp.223–240</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/p6.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">5</span>
+    <div class="paper-body">
+      Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p15.pdf">A Perspective on Evolutionary Computation</a></span>
+      <div class="paper-venue">Proc. Workshop on Evolutionary Computation, University of New England, Armidale, Australia, 1994, pp.76–93</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p15.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">6</span>
+    <div class="paper-body">
+      Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p16.pdf">Genetic Algorithms, Numerical Optimization and Constraints</a></span>
+      <div class="paper-venue">Proc. 6th International Conference on Genetic Algorithms, Pittsburgh, 1995, pp.151–158</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p16.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">7</span>
+    <div class="paper-body">
+      Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p17.pdf">A Survey of Constraint Handling Techniques in Evolutionary Computation Methods</a></span>
+      <div class="paper-venue">Proc. 4th Annual Conference on Evolutionary Programming, MIT Press, 1995, pp.135–155</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p17.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">8</span>
+    <div class="paper-body">
+      Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p20.pdf">Heuristic Methods for Evolutionary Computation Techniques</a></span>
+      <div class="paper-venue">Journal of Heuristics, Vol.1, No.2, 1995, pp.177–206</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/p20.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">9</span>
+    <div class="paper-body">
+      Michalewicz, Z. and Nazhiyath, G.
+      <span class="paper-title"><a href="Papers/p24.pdf">Genocop III: A Co-evolutionary Algorithm for Numerical Optimization Problems with Nonlinear Constraints</a></span>
+      <div class="paper-venue">Proc. 2nd IEEE International Conference on Evolutionary Computation, Vol.2, Perth, 1995, pp.647–651</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p24.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">10</span>
+    <div class="paper-body">
+      Michalewicz, Z., Nazhiyath, G., and Michalewicz, M.
+      <span class="paper-title"><a href="Papers/p25.pdf">A Note on Usefulness of Geometrical Crossover for Numerical Optimization Problems</a></span>
+      <div class="paper-venue">Proc. 5th Annual Conference on Evolutionary Programming, MIT Press, 1996, pp.305–312</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p25.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">11</span>
+    <div class="paper-body">
+      Schoenauer, M. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p26.pdf">Evolutionary Computation at the Edge of Feasibility</a></span>
+      <div class="paper-venue">Proc. 4th Parallel Problem Solving from Nature (PPSN IV), Springer LNCS Vol.1141, Berlin, 1996, pp.245–254</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p26.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">12</span>
+    <div class="paper-body">
+      Michalewicz, Z. and Schoenauer, M.
+      <span class="paper-title"><a href="Papers/p30.pdf">Evolutionary Algorithms for Constrained Parameter Optimization Problems</a></span>
+      <div class="paper-venue">Evolutionary Computation, Vol.4, No.1, 1996, pp.1–32</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/p30.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">13</span>
+    <div class="paper-body">
+      Michalewicz, Z., Dasgupta, D., Le Riche, R.G., and Schoenauer, M.
+      <span class="paper-title"><a href="Papers/eng.pdf">Evolutionary Algorithms for Constrained Engineering Problems</a></span>
+      <div class="paper-venue">Computers &amp; Industrial Engineering, Vol.30, No.2, September 1996, pp.851–870</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/eng.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">14</span>
+    <div class="paper-body">
+      Xiao, J., Michalewicz, Z., Zhang, L., and Trojanowski, K.
+      <span class="paper-title"><a href="Papers/p31.pdf">Adaptive Evolutionary Planner/Navigator for Mobile Robots</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.1, No.1, 1997, pp.18–28</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/p31.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="book">
+    <span class="paper-num">15</span>
+    <div class="paper-body">
+      Michalewicz, Z., Hinterding, R., and Michalewicz, M.
+      <span class="paper-title"><a href="Papers/p32.pdf">Evolutionary Algorithms</a></span>
+      <div class="paper-venue">Chapter 2 in <em>Fuzzy Evolutionary Computation</em>, W. Pedrycz (ed.), Kluwer Academic, 1997</div>
+    </div>
+    <div><span class="paper-tag tag-book">Book Chapter</span><br><a class="pdf-link" href="Papers/p32.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">16</span>
+    <div class="paper-body">
+      Hinterding, R., Michalewicz, Z., and Eiben, A.E.
+      <span class="paper-title"><a href="Papers/p34.pdf">Adaptation in Evolutionary Computation: A Survey</a></span>
+      <div class="paper-venue">Proc. 4th IEEE International Conference on Evolutionary Computation, Indianapolis, 1997, pp.65–69</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p34.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">17</span>
+    <div class="paper-body">
+      Schoenauer, M. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p37.pdf">Boundary Operators for Constrained Parameter Optimization Problems</a></span>
+      <div class="paper-venue">Proc. 7th International Conference on Genetic Algorithms, East Lansing, Michigan, 1997, pp.320–329</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p37.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="book">
+    <span class="paper-num">18</span>
+    <div class="paper-body">
+      Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p38.pdf">The Significance of the Evaluation Function in Evolutionary Algorithms</a></span>
+      <div class="paper-venue">IMA Volumes in Mathematics and Its Applications, Vol.111, Springer-Verlag, L. Davis, K. De Jong, M. Vose, and D. Whitley (Eds.), 1998, pp.151–166</div>
+    </div>
+    <div><span class="paper-tag tag-book">Book Chapter</span><br><a class="pdf-link" href="Papers/p38.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">19</span>
+    <div class="paper-body">
+      Hinterding, R. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p39.pdf">Your Brains and My Beauty: Parent Matching for Constrained Optimisation</a></span>
+      <div class="paper-venue">Proc. 5th International Conference on Evolutionary Computation, Anchorage, Alaska, 1998, pp.810–815</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p39.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">20</span>
+    <div class="paper-body">
+      Smierzchalski, R. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p40.pdf">Adaptive Modeling of a Ship Trajectory in Collision Situations at Sea</a></span>
+      <div class="paper-venue">Proc. 5th International Conference on Evolutionary Computation, Anchorage, Alaska, 1998, pp.342–347</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p40.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">21</span>
+    <div class="paper-body">
+      Koziel, S. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p43.pdf">A Decoder-based Evolutionary Algorithm for Constrained Parameter Optimization Problems</a></span>
+      <div class="paper-venue">Proc. 5th Parallel Problem Solving from Nature (PPSN V), Amsterdam, Springer LNCS, 1998, pp.231–240</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p43.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">22</span>
+    <div class="paper-body">
+      Tao, G. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p44.pdf">Inver-over Operator for the TSP</a></span>
+      <div class="paper-venue">Proc. 5th Parallel Problem Solving from Nature (PPSN V), Amsterdam, Springer LNCS, 1998, pp.803–812</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/p44.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">23</span>
+    <div class="paper-body">
+      Koziel, S. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/jec2.pdf">Evolutionary Algorithms, Homomorphous Mappings, and Constrained Parameter Optimization</a></span>
+      <div class="paper-venue">Evolutionary Computation, Vol.7, No.1, 1999, pp.19–44</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/jec2.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">24</span>
+    <div class="paper-body">
+      Eiben, A.E., Hinterding, R., and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/self9.pdf">Parameter Control in Evolutionary Algorithms</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.3, No.2, 1999, pp.124–141</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/self9.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">25</span>
+    <div class="paper-body">
+      Leguizamon, G. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/as4.pdf">A New Version of Ant System for Subset Problems</a></span>
+      <div class="paper-venue">Proc. Congress on Evolutionary Computation, July 1999, pp.1459–1464</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/as4.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="era-heading">2000 – 2006 · Real-World Applications &amp; Supply Chain</div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">26</span>
+    <div class="paper-body">
+      Smierzchalski, R. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p41.pdf">Modeling of Ship Trajectory in Collision Situations by an Evolutionary Algorithm</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.4, No.3, 2000, pp.227–241</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/p41.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">27</span>
+    <div class="paper-body">
+      Michalewicz, Z., Deb, K., Schmidt, M., and Stidsen, T.
+      <span class="paper-title"><a href="Papers/new.pdf">Test-case Generator for Constrained Parameter Optimization Techniques</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.4, No.3, 2000, pp.197–215</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/new.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">28</span>
+    <div class="paper-body">
+      Vergara, F.E., Khouja, M. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/Material.pdf">An Evolutionary Algorithm for Optimizing Material Flow in Supply Chains</a></span>
+      <div class="paper-venue">Computers &amp; Industrial Engineering, Vol.43, 2002, pp.407–421</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/Material.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">29</span>
+    <div class="paper-body">
+      Ursem, R.K., Krink, T., Jensen, M.T., and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/Rasmus.pdf">Analysis and Modeling of Control Tasks in Dynamic Systems</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.6, No.4, 2002, pp.378–389</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/Rasmus.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">30</span>
+    <div class="paper-body">
+      Johnson, R.W., Melich, M.E., Michalewicz, Z., Schmidt, M.
+      <span class="paper-title"><a href="Papers/tempo.pdf">Coevolutionary "TEMPO" Game</a></span>
+      <div class="paper-venue">Proc. Congress on Evolutionary Computation, June 2004</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/tempo.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">31</span>
+    <div class="paper-body">
+      Johnson, R.W., Melich, M.E., Michalewicz, Z., Schmidt, M.
+      <span class="paper-title"><a href="Papers/R&M.pdf">Coevolutionary Optimization of Fuzzy Logic Intelligence for Strategic Decision Support</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.9, No.6, 2005, pp.682–694</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/R&M.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">32</span>
+    <div class="paper-body">
+      Michalewicz, Z., Schmidt, M., Michalewicz, M., and Chiriac, C.
+      <span class="paper-title"><a href="Papers/IEEE.pdf">A Decision-Support System Based on Computational Intelligence: A Case Study</a></span>
+      <div class="paper-venue">IEEE Intelligent Systems, Vol.20, No.4, July–August 2005, pp.44–49</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/IEEE.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="book">
+    <span class="paper-num">33</span>
+    <div class="paper-body">
+      Smierzchalski, R. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/p45.pdf">Path Planning in Dynamic Environments</a></span>
+      <div class="paper-venue">Chapter in <em>Innovations in Robot Mobility and Control</em>, Springer-Verlag, 2006</div>
+    </div>
+    <div><span class="paper-tag tag-book">Book Chapter</span><br><a class="pdf-link" href="Papers/p45.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="era-heading">2007 – 2012 · Forecasting, Trading, Puzzle-Based Learning</div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">34</span>
+    <div class="paper-body">
+      Wagner, N., Michalewicz, Z., Khouja, M., and McGregor, R.R.
+      <span class="paper-title"><a href="Papers/DyForGP.pdf">Time Series Forecasting for Dynamic Environments: The DyFor Genetic Program Model</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.11, No.4, August 2007, pp.433–452</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/DyForGP.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">35</span>
+    <div class="paper-body">
+      Michalewicz, Z. and Michalewicz, M.
+      <span class="paper-title"><a href="Papers/PBL.pdf">Puzzle-Based Learning</a></span>
+      <div class="paper-venue">Proc. 18th Annual Conference of the Australasian Association for Engineering Education, Melbourne, December 2007</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/PBL.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">36</span>
+    <div class="paper-body">
+      Ghandar, A., Michalewicz, Z., Schmidt, M., To, T.-D., and Zurbruegg, R.
+      <span class="paper-title"><a href="Papers/trading.pdf">Computational Intelligence for Evolving Trading Rules</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.13, No.1, February 2009, pp.71–86</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/trading.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">37</span>
+    <div class="paper-body">
+      Falkner, N., Sooriamurthi, R., and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/PBL1.pdf">Puzzle-Based Learning: The First Experiences</a></span>
+      <div class="paper-venue">Proc. 20th Annual Conference of the Australasian Association for Engineering Education, Adelaide, December 2009</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/PBL1.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">38</span>
+    <div class="paper-body">
+      Falkner, N., Sooriamurthi, R., and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/PBL-IEEE.pdf">Puzzle-Based Learning for Engineering and Computer Science</a></span>
+      <div class="paper-venue">IEEE Computer, Vol.43, No.4, April 2010, pp.20–28</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/PBL-IEEE.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">39</span>
+    <div class="paper-body">
+      Michalewicz, M., Michalewicz, Z., and Spitty, R.
+      <span class="paper-title"><a href="Papers/Wine.pdf">Optimising the Wine Supply-Chain</a></span>
+      <div class="paper-venue">Proc. 14th Australian Wine Industry Technical Conference, July 2010</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/Wine.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">40</span>
+    <div class="paper-body">
+      Wagner, N., Michalewicz, Z., Schellenberg, S., Chiriac, C., Ibrahimov, M., and Mohais, A.
+      <span class="paper-title"><a href="Papers/p51.pdf">Intelligent Techniques for Forecasting Multiple Time Series in Real-World Systems</a></span>
+      <div class="paper-venue">International Journal of Intelligent Computing and Cybernetics, Vol.4, No.3, 2011, pp.284–310</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/p51.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">41</span>
+    <div class="paper-body">
+      Bui, L.T., Michalewicz, Z., Parkinson, E., and Abello, M.B.
+      <span class="paper-title"><a href="Papers/dmp.pdf">Adaptation in Dynamic Environments: A Case Study in Mission Planning</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.16, No.2, April 2012, pp.190–209</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/dmp.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="book">
+    <span class="paper-num">42</span>
+    <div class="paper-body">
+      Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/essay2.pdf">Quo Vadis, Evolutionary Computation? On a Growing Gap Between Theory and Practice</a></span>
+      <div class="paper-venue">Springer LNCS State-of-the-Art Survey, J. Liu et al. (Eds.), 2012</div>
+    </div>
+    <div><span class="paper-tag tag-book">Book Chapter</span><br><a class="pdf-link" href="Papers/essay2.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">43</span>
+    <div class="paper-body">
+      Falkner, N., Sooriamurthi, R., and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/tmcs.pdf">Teaching Puzzle-Based Learning: Development of Basic Concepts</a></span>
+      <div class="paper-venue">Teaching Mathematics and Computer Science, Vol.10, No.1, 2012, pp.183–204</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/tmcs.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">44</span>
+    <div class="paper-body">
+      Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/essay1.pdf">The Emperor is Naked: Evolutionary Algorithms for Real-World Applications</a></span>
+      <div class="paper-venue">ACM Ubiquity, November 2012, pp.1–13</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/essay1.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">45</span>
+    <div class="paper-body">
+      Falkner, N., Sooriamurthi, R., and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/tmcs-2.pdf">Teaching Puzzle-Based Learning: Development of Transferable Skills</a></span>
+      <div class="paper-venue">Teaching Mathematics and Computer Science, Vol.10, No.2, 2012, pp.245–268</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/tmcs-2.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="era-heading">2013 – 2018 · Particle Swarm, Combinatorial Optimisation, Industry</div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">46</span>
+    <div class="paper-body">
+      Stolk, J., Mann, I., Mohais, A., and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/routing.pdf">Combining Vehicle Routing and Packing for Optimal Delivery Schedules of Water Tanks</a></span>
+      <div class="paper-venue">OR Insight, Vol.26, No.3, 2013, pp.167–190</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/routing.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">47</span>
+    <div class="paper-body">
+      Bonyadi, M.R., Michalewicz, Z., and Barone, L.
+      <span class="paper-title"><a href="Papers/TTP.pdf">Travelling Thief Problem: The First Step in Transition from Theoretical Problems to Realistic Problems</a></span>
+      <div class="paper-venue">Proc. 2013 IEEE Congress on Evolutionary Computation, Cancun, Mexico, June 2013</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/TTP.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">48</span>
+    <div class="paper-body">
+      Ibrahimov, M., Mohais, A., Schellenberg, S., and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/SchedulingMine.pdf">Scheduling in Iron Ore Open-pit Mining</a></span>
+      <div class="paper-venue">International Journal of Advanced Manufacturing Technology, Vol.72, No.5–8, May 2014, pp.1021–1037</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/SchedulingMine.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">49</span>
+    <div class="paper-body">
+      Bonyadi, M.R. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/JofH.pdf">An Analysis of the Velocity Updating Rule of Particle Swarm Optimization Algorithm</a></span>
+      <div class="paper-venue">Journal of Heuristics, Vol.20, No.4, 2014, pp.417–452</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/JofH.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">50</span>
+    <div class="paper-body">
+      Bonyadi, M.R. and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/SwarmIntelligence.pdf">A Locally Convergent Rotational Invariant Particle Swarm Optimizer</a></span>
+      <div class="paper-venue">Swarm Intelligence, Vol.8, No.3, 2014, pp.159–198</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/SwarmIntelligence.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">51</span>
+    <div class="paper-body">
+      Bonyadi, M.R., Li, X., and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/SwarmAndEvolutionaryComp.pdf">A Hybrid Particle Swarm with a Time-Adaptive Topology for Constrained Optimization</a></span>
+      <div class="paper-venue">Swarm and Evolutionary Computation, Vol.18, No.1, 2014, pp.22–37</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/SwarmAndEvolutionaryComp.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">52</span>
+    <div class="paper-body">
+      Bonyadi, M.R., Michalewicz, Z., Nallaperuma, S., and Neumann, F.
+      <span class="paper-title"><a href="PapersRB/Ahura-Car.pdf">Ahura: A Heuristic-Based Racer for Simulated Car Racing</a></span>
+      <div class="paper-venue">IEEE Transactions on Computational Intelligence and AI in Games, Vol.9, No.3, May 2016, pp.290–304</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="PapersRB/Ahura-Car.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">53</span>
+    <div class="paper-body">
+      Bonyadi, M.R. and Michalewicz, Z.
+      <span class="paper-title"><a href="PapersRB/Analysis-stability-local.pdf">Analysis of Stability, Local Convergence, and Transformation Sensitivity of a Variant of PSO</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.20, No.3, June 2016, pp.370–385</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="PapersRB/Analysis-stability-local.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">54</span>
+    <div class="paper-body">
+      Bonyadi, M.R. and Michalewicz, Z.
+      <span class="paper-title"><a href="PapersRB/Stabilityanalyses.pdf">Stability Analysis of the Particle Swarm Optimization Without Stagnation</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.20, No.5, October 2016, pp.814–819</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="PapersRB/Stabilityanalyses.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">55</span>
+    <div class="paper-body">
+      Bonyadi, M.R. and Michalewicz, Z.
+      <span class="paper-title"><a href="PapersRB/PSOreview.pdf">Particle Swarm Optimization for Single Objective Continuous Space Problems: A Review</a></span>
+      <div class="paper-venue">Evolutionary Computation, Vol.25, No.1, 2017, pp.1–54</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="PapersRB/PSOreview.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">56</span>
+    <div class="paper-body">
+      Bonyadi, M.R. and Michalewicz, Z.
+      <span class="paper-title"><a href="PapersRB/Impact.pdf">Impacts of Coefficients on Movement Patterns in the Particle Swarm Optimization Algorithm</a></span>
+      <div class="paper-venue">IEEE Transactions on Evolutionary Computation, Vol.21, No.3, June 2017, pp.378–390</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="PapersRB/Impact.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">57</span>
+    <div class="paper-body">
+      Przybylek, M.R., Wierzbicki, A., and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/decomp.pdf">Decomposition Algorithms for a Multi-Hard Problem</a></span>
+      <div class="paper-venue">Evolutionary Computation, Vol.26, No.3, 2018, pp.507–533</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/decomp.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="book">
+    <span class="paper-num">58</span>
+    <div class="paper-body">
+      Bonyadi, M.R., Michalewicz, Z., Neumann, F., and Wagner, M.
+      <span class="paper-title"><a href="Papers/bookchapter2018.pdf">Evolutionary Computation for Multi-Component Problems: Opportunities and Future Directions</a></span>
+      <div class="paper-venue">Chapter in <em>Optimization in Industry</em>, S. Datta and J.P. Davim (Eds.), Springer, 2018</div>
+    </div>
+    <div><span class="paper-tag tag-book">Book Chapter</span><br><a class="pdf-link" href="Papers/bookchapter2018.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="era-heading">2019 – 2023 · AI for Business &amp; Retrospectives</div>
+
+  <div class="paper" data-type="conf">
+    <span class="paper-num">59</span>
+    <div class="paper-body">
+      Li, X., Shemshadi, A., Olech, L.P., and Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/AusDM_2019.pdf">Customer Wallet Share Estimation for Manufacturers Based on Transactions Data</a></span>
+      <div class="paper-venue">Proc. Australasian Data Mining Conference (AusDM 2019), Adelaide, December 2019</div>
+    </div>
+    <div><span class="paper-tag tag-conf">Conference</span><br><a class="pdf-link" href="Papers/AusDM_2019.pdf">PDF ↗</a></div>
+  </div>
+
+  <div class="paper" data-type="journal">
+    <span class="paper-num">60</span>
+    <div class="paper-body">
+      Michalewicz, Z.
+      <span class="paper-title"><a href="Papers/ECJ_final.pdf">A Personal Perspective on Evolutionary Computation: A 35-Year Journey</a></span>
+      <div class="paper-venue">Evolutionary Computation, anniversary issue, Vol.31, No.2, July 2023, pp.123–155</div>
+    </div>
+    <div><span class="paper-tag tag-journal">Journal</span><br><a class="pdf-link" href="Papers/ECJ_final.pdf">PDF ↗</a></div>
+  </div>
+
+  <p style="margin-top:32px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:.88rem;color:var(--gray)">
+    For the complete bibliography of 250+ publications, see the <a href="ZM.pdf">full CV (PDF)</a>.
+  </p>
+
+</div>
+
+<footer>
+  <p><a href="index.html">← Home</a> &nbsp;·&nbsp; <a href="talks.html">Talks</a> &nbsp;·&nbsp; &copy; Zbigniew Michalewicz</p>
+</footer>
+
+<script>
+function filter(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.paper').forEach(p => {
+    p.style.display = (type === 'all' || p.dataset.type === type) ? 'grid' : 'none';
+  });
+}
+</script>
+</body>
+</html>

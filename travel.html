@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travels — Zbigniew Michalewicz</title>
+  <meta name="description" content="Travel gallery of Prof. Zbigniew Michalewicz — 40 years of adventures across the world, 1986–2026.">
+  <style>
+    :root {
+      --navy:   #0f2040;
+      --teal:   #0e7c7b;
+      --teal-l: #12a09e;
+      --gold:   #c9972c;
+      --light:  #f7f8fa;
+      --gray:   #5a6475;
+      --border: #dde3ec;
+      --white:  #ffffff;
+      --radius: 8px;
+      --shadow: 0 4px 20px rgba(15,32,64,.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a2235;
+      background: var(--light);
+    }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { color: var(--teal-l); text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--navy);
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+    nav .inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 52px;
+    }
+    nav .brand { color: #fff; font-size: 14px; font-style: italic; }
+    nav ul { list-style: none; display: flex; gap: 4px; flex-wrap: wrap; }
+    nav ul a {
+      color: rgba(255,255,255,.82);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px; padding: 5px 10px; border-radius: 4px;
+      transition: background .18s;
+    }
+    nav ul a:hover { background: rgba(255,255,255,.13); color: #fff; text-decoration: none; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1b3a5c 100%);
+      color: #fff; padding: 52px 24px 44px; text-align: center;
+    }
+    .hero h1 { font-size: 2.2rem; font-weight: normal; margin-bottom: 10px; }
+    .hero p { color: rgba(255,255,255,.72); font-size: 1rem; max-width: 600px; margin: 0 auto 20px; }
+
+    /* YEAR NAV */
+    .year-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      position: sticky; top: 52px; z-index: 90;
+      overflow-x: auto; white-space: nowrap;
+    }
+    .year-nav .inner-nav {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; gap: 6px; flex-wrap: wrap;
+    }
+    .year-nav a {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12.5px; font-weight: 600;
+      color: var(--gray);
+      padding: 4px 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      transition: all .18s;
+    }
+    .year-nav a:hover { border-color: var(--teal); color: var(--teal); text-decoration: none; }
+
+    /* CONTENT */
+    .content { max-width: 1200px; margin: 0 auto; padding: 0 24px 64px; }
+
+    /* YEAR SECTION */
+    .year-section { margin-top: 56px; }
+    .year-section h2 {
+      font-size: 1.6rem; color: var(--navy);
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--teal);
+      margin-bottom: 28px;
+      display: inline-block;
+    }
+
+    /* GALLERY GRID */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      margin-bottom: 0;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .photo-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(15,32,64,.16);
+    }
+    .photo-card img {
+      width: 100%; display: block;
+      max-height: 320px; object-fit: cover;
+    }
+    .photo-card .caption {
+      padding: 10px 14px 12px;
+      font-size: .85rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+    .photo-card .caption a { color: var(--teal); }
+
+    /* LIGHTBOX */
+    #lightbox {
+      display: none;
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,.92);
+      align-items: center; justify-content: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 90vw; max-height: 80vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+    #lightbox .lb-caption {
+      color: rgba(255,255,255,.82);
+      font-size: .9rem;
+      margin-top: 14px;
+      max-width: 700px;
+      text-align: center;
+      line-height: 1.6;
+    }
+    #lightbox .lb-close {
+      position: fixed; top: 20px; right: 28px;
+      color: #fff; font-size: 2.2rem; cursor: pointer;
+      line-height: 1; opacity: .7; transition: opacity .18s;
+    }
+    #lightbox .lb-close:hover { opacity: 1; }
+    #lightbox .lb-nav {
+      position: fixed;
+      top: 50%; transform: translateY(-50%);
+      font-size: 2.5rem; color: rgba(255,255,255,.6);
+      cursor: pointer; user-select: none; padding: 0 16px;
+      transition: color .18s;
+    }
+    #lightbox .lb-nav:hover { color: #fff; }
+    #lightbox .lb-prev { left: 4px; }
+    #lightbox .lb-next { right: 4px; }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.65);
+      text-align: center; padding: 28px 24px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .82rem; line-height: 1.8;
+    }
+    footer a { color: var(--teal-l); }
+
+    @media (max-width: 600px) {
+      .gallery { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <span class="brand">Prof. Zbigniew Michalewicz</span>
+    <ul>
+      <li><a href="index.html">← Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#books">Books</a></li>
+      <li><a href="index.html#papers">Papers</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Travels</h1>
+  <p>Four decades of adventures across six continents — from Patagonia to Osaka, Machu Picchu to St. Petersburg, and everywhere in between.</p>
+</div>
+
+<!-- YEAR NAV -->
+<div class="year-nav">
+  <div class="inner-nav">
+    <a href="#y2026">2026</a>
+    <a href="#y2025">2025</a>
+    <a href="#y2024">2024</a>
+    <a href="#y2023">2023</a>
+    <a href="#y2022">2022</a>
+    <a href="#y2021">2021</a>
+    <a href="#y2020">2020</a>
+    <a href="#y2019">2019</a>
+    <a href="#y2018">2018</a>
+    <a href="#y2017">2017</a>
+    <a href="#y2016">2016</a>
+    <a href="#y2015">2015</a>
+    <a href="#y2014">2014</a>
+    <a href="#y2013">2013</a>
+    <a href="#y2012">2012</a>
+    <a href="#y2011">2011</a>
+    <a href="#y2008">2008–2010</a>
+    <a href="#y2006">2006–2007</a>
+    <a href="#y2005">2005</a>
+    <a href="#y2004">2004</a>
+    <a href="#y2003">2003</a>
+    <a href="#y2002">2002</a>
+    <a href="#y2000">2000–2001</a>
+    <a href="#y1999">1999</a>
+    <a href="#y1998">1998</a>
+    <a href="#y1996">1996–1997</a>
+    <a href="#y1992">1992–1994</a>
+    <a href="#y1989">1989–1991</a>
+    <a href="#y1988">1988</a>
+    <a href="#y1986">1986–1987</a>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- 2026 -->
+  <div class="year-section" id="y2026">
+    <h2>2026</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2026/sister.jpeg" alt=""><div class="caption">With my sister Maryla, Adelaide, March 2026</div></div>
+      <div class="photo-card"><img src="Trav2026/lunch.jpg" alt=""><div class="caption">Family lunch, West Lakes, South Australia, January 2026</div></div>
+      <div class="photo-card"><img src="Trav2026/kasia.jpg" alt=""><div class="caption">With my niece Kasia, West Lakes Shores, South Australia, January 2026</div></div>
+      <div class="photo-card"><img src="Trav2026/cleland.jpg" alt=""><div class="caption">In the Cleland Wildlife Park with Irenka and Karolina; we saw <a href="https://www.youtube.com/watch?v=d4yYDlkXDvc">dingos</a>, we fed <a href="https://www.youtube.com/watch?v=teE-iB8bDbU">emu</a>, we watched <a href="https://www.youtube.com/shorts/zTpdlGf7DLI">koala's</a> and <a href="https://www.youtube.com/watch?v=sEa32s3aHK0">Tasmanian Devil's</a> lunches, watched some birds like <a href="https://www.youtube.com/watch?v=fipqxcrhLMc">black swans</a> and pelikans, and, of course, <a href="https://www.youtube.com/shorts/MoNlFzqXHHo">kangaroos</a>. Lots of fun! Cleland Wildlife Park, South Australia, January 2026.</div></div>
+      <div class="photo-card"><img src="Trav2026/nephew_nieces.jpg" alt=""><div class="caption">With my nephew Tomek and nieces Kasia and Irenka, Semaphore Park, South Australia, January 2026</div></div>
+      <div class="photo-card"><img src="Trav2026/beach.jpg" alt=""><div class="caption">With family, Semaphore Park, South Australia, January 2026</div></div>
+      <div class="photo-card"><img src="Trav2026/barossa.jpg" alt=""><div class="caption">With family and friends, Barossa Valley, South Australia, January 2026</div></div>
+    </div>
+  </div>
+
+  <!-- 2025 -->
+  <div class="year-section" id="y2025">
+    <h2>2025</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2025/downtown_25.jpg" alt=""><div class="caption">With family, Adelaide, Australia, December 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/christmas_25.jpg" alt=""><div class="caption">Christmas with family, Adelaide, Australia, December 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/lecture.jpg" alt=""><div class="caption">50th anniversary lecture at the Institute of Computer Science, Polish Academy of Sciences, Warsaw, Poland, 29 September 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/lecture2.jpg" alt=""><div class="caption">50th anniversary lecture at the Institute of Computer Science, Polish Academy of Sciences, Warsaw, Poland, 29 September 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/wierzynek.jpg" alt=""><div class="caption">Dinner at the Wierzynek Restaurant, Kraków, Poland, August 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/brunch.jpg" alt=""><div class="caption">Sunday brunch at Belvedere Restaurant, Warsaw, Poland, August 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/anniversary.jpg" alt=""><div class="caption">Celebrating 50th anniversary with family and friends, Der Elefant, Warsaw, Poland, 2nd August 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/ercolano.jpg" alt=""><div class="caption">With family and friends, Ercolano, Italy, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/pompei2.jpg" alt=""><div class="caption">Pompei, Italy, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/pompei.jpg" alt=""><div class="caption">With family and friends, Pompei, Italy, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/sorento.jpg" alt=""><div class="caption">Sorento, Italy, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/colosseum.jpg" alt=""><div class="caption">With family and friends, Rome, Italy, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/vatican.jpg" alt=""><div class="caption">With Maryla and Maciek, Vatican, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/florence.jpg" alt=""><div class="caption">With family and friends, Florence, Italy, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/pisa.jpg" alt=""><div class="caption">Pisa, Italy, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/dinner.jpg" alt=""><div class="caption">With family and friends, Barcelona, Spain, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/barcelona.jpg" alt=""><div class="caption">Barcelona, Spain, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/gibraltar.jpg" alt=""><div class="caption"><a href="https://youtu.be/S66-39y-sIg">Passing</a> Gibraltar, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/casablanca1.jpg" alt=""><div class="caption">Hassan II Mosque, Casablanca, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/casablanca2.jpg" alt=""><div class="caption">In front to Rick’s Café, Casablanca, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/casablanca3.jpg" alt=""><div class="caption">I asked Sam to play it again, but he said that he was a bit rusty on it, so he asked me to sit next to the piano, Rick’s Café, Casablanca, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/tenerife.jpg" alt=""><div class="caption">Tenerife, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/duo_claudio.jpg" alt=""><div class="caption">With Duo Claudio team – before <a href="https://youtu.be/BjwHY5eNRQc">performing</a> on the cruise ship, Atlantic Ocean, west from South Africa, June 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/captain.jpg" alt=""><div class="caption">With the captain of “Crown Princess”, Petar Lesic, somewhere at Atlantic Ocean, west from Angola, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/desert2.jpg" alt=""><div class="caption">Deep in the Namib Desert, Namibia, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/desert.jpg" alt=""><div class="caption">In the Namib Desert, one of the oldest and harshest deserts on Earth, Namibia, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/swakopmund.jpg" alt=""><div class="caption">In the old German town of Swakopmund – a legacy of that distant era when Namibia was a German colony named Sudwest Afrika, Namibia, July 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/cape_town3.jpg" alt=""><div class="caption">With Klaudiusz and Tania, Cape Town, South Africa, June 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/cape_town2.jpg" alt=""><div class="caption">Cape Town, South Africa, June 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/cape_town1.jpg" alt=""><div class="caption">With <a href="https://youtu.be/VrVnzenFRig">pinguins</a>, Boulders Beach, Table Mountain National Park, South Africa, June 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/durban.jpg" alt=""><div class="caption">At the Gateway Theatre of Shopping – 2nd largest shopping mall in Africa, Durban, South Africa, June 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/mauritius.jpg" alt=""><div class="caption">Enjoying Mauritius, June 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/breakfast.jpg" alt=""><div class="caption">Breakfast at the Crown Princess, somewhere at the Indian Ocean, June 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/sailing.jpg" alt=""><div class="caption">Somewhere in the Indian Ocean, June 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/boarding.jpg" alt=""><div class="caption">Boarding the Crown Princess for the 38 nights cruise from Adelaide to Barcelona, Adelaide, 7 June 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/apartment2.jpg" alt=""><div class="caption">Essential furniture in a new apartment, Adelaide, Australia, April 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/apartment1.jpg" alt=""><div class="caption">Enjoying evening view from a new apartment, Adelaide, Australia, April 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/cat.jpg" alt=""><div class="caption">With little kitten, Panda, Adelaide, Australia, March 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/yaneli.jpg" alt=""><div class="caption">Yaneli's wedding, Adelaide, Australia, 26 March 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/cooking.jpg" alt=""><div class="caption">Cooking class, Hahndorf, Australia, February 2025</div></div>
+      <div class="photo-card"><img src="Trav2025/AO.jpg" alt=""><div class="caption">At the Australian Open, Melbourne, Australia, January 2025</div></div>
+    </div>
+  </div>
+
+  <!-- 2024 -->
+  <div class="year-section" id="y2024">
+    <h2>2024</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2024/CPX_party.jpg" alt=""><div class="caption">Complexica Christmas party, Adelaide, Australia, December 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/family_meeting3.jpg" alt=""><div class="caption">With Marysia, Krzysztof and Maryla, Warsaw, Poland, October 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/family_meeting2.jpg" alt=""><div class="caption">With Maciek, Marian and Ania, Warsaw, Poland, October 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/Maryla.jpg" alt=""><div class="caption">With Maryla, Warsaw, Poland, August 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/family_meeting1.jpg" alt=""><div class="caption">Family meeting, Warsaw, Poland, July 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/mc.jpg" alt=""><div class="caption">Monte Carlo, Monaco, July 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/chevredor2.jpg" alt=""><div class="caption">Family dinner, Chevredor, France, July 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/chevredor3.jpg" alt=""><div class="caption">Playing chess with Adam, Chevredor, France, July 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/st1.jpg" alt=""><div class="caption">Saint-Tropez, France, July 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/st2.jpg" alt=""><div class="caption">Louis de Funès Museum, Saint-Tropez, France, July 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/st3.jpg" alt=""><div class="caption">Nice dinner, Saint-Tropez, France, July 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/if1.jpg" alt=""><div class="caption">In the cell of the Count of Monte Christo, Château d'If, France, July 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/if2.jpg" alt=""><div class="caption">Château d'If, France, July 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/marseille.jpg" alt=""><div class="caption">Marseille, France, July 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/nice.jpg" alt=""><div class="caption">Nice, France, July 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/moldova.jpg" alt=""><div class="caption">With Complexica team - Moldova office, Winery Mircesti, Moldova, June 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/iasi1.jpeg" alt=""><div class="caption">At the ECODAM doctoral summer school, Iasi, Romania, June 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/warsaw1.jpg" alt=""><div class="caption">With Complexica team and Maciek, Warsaw, Poland, June 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/warsaw2.jpg" alt=""><div class="caption">With Sue, Warsaw, Poland, June 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/pawel.jpg" alt=""><div class="caption">With Pawel Nowacki, Warsaw, Poland, June 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/Star_Wars.jpg" alt=""><div class="caption">Star Wars Day, “May the force be with you", Adelaide, Australia, 4th May 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/Hahndorf.jpg" alt=""><div class="caption">Hahndorf, Australia, April 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/lamb2.jpg" alt=""><div class="caption">A new yellow toy, Adelaide, Australia, February 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/Rosetta.jpg" alt=""><div class="caption">With Cecylia and Wlodek Ciechanowski and Adrian, Melbourne, Australia, January 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/AO2.jpg" alt=""><div class="caption">Australian Open, after the final game (ladies), Melbourne, Australia, January 2024</div></div>
+      <div class="photo-card"><img src="Trav2024/AO1.jpg" alt=""><div class="caption">With Hana Pokorna and Jon Wheeler at Australian Open, Melbourne, Australia, January 2024</div></div>
+    </div>
+  </div>
+
+  <!-- 2023 -->
+  <div class="year-section" id="y2023">
+    <h2>2023</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2023/family2.jpg" alt=""><div class="caption">Family photo at the Ovation of the Seas, Tasman Sea, December 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/Ovation.jpg" alt=""><div class="caption">Our group; lunch at the Ovation of the Seas, Tasman Sea, December 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/Mt_Victoria.jpg" alt=""><div class="caption">At Mt. Victoria, Wellington, New Zealand, December 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/Kaikoura.jpg" alt=""><div class="caption">At 48 Kaikoura Streeet, Maupuia, Wellington, New Zealand, December 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/Wellington.jpg" alt=""><div class="caption">Wellington, New Zealand, December 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/blackjack4.jpg" alt=""><div class="caption">Winning blackjack competition (for the 4th time!) at the Ovation of the Seas, Tasman Sea, December 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/Sydney.jpg" alt=""><div class="caption">With Ewa and Ania & Tomek Dobrzycki, Sydney, Australia, December 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/wybory.jpg" alt=""><div class="caption">Casting my vote for the Polish parliamentary election. In Adelaide, the final count had the centrist Civic Coalition with 135 votes, followed by PiS with 52 votes, the Left with 23 votes, center-right Third Way with 18 votes, and the far-right Confederation with 14 votes; Adelaide, Australia, 15 October 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/wyklad.jpg" alt=""><div class="caption">Guest lecture at University of Adelaide: "On significance of Dragon Years in a Life of a Scientist", October 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/Svetlana.jpg" alt=""><div class="caption">With Svetlana Coretchi, Adelaide, South Australia, October 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/lunch.jpg" alt=""><div class="caption">With Matt and Vinh, Adelaide, South Australia, September 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/amsterdam.jpg" alt=""><div class="caption">Amsterdam, Netherlands, July 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/rudesheim3.jpg" alt=""><div class="caption">Rudesheim, Germany, July 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/miltenberg.jpg" alt=""><div class="caption">Miltenberg Germany, July 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/nuremberg.jpg" alt=""><div class="caption">Nuremberg, Germany July 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/salzburg2.jpg" alt=""><div class="caption">In front of the Basilica Minor St. Michael - where Georg and Maria von Trapp were married in the 1965 movie "The Sound of Music", near Salsburg, Austria, July 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/salzburg1.jpg" alt=""><div class="caption">Salzburg, Austria, July 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/durnstein_castle.jpg" alt=""><div class="caption">Durnstein Castle in the background - the place where Richard the Lionheart was kept prisoner for a while towards the end of the XII century, Durnstein, Austria, July 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/vienna.jpg" alt=""><div class="caption">Vienna, Austria, July 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/bratislava.jpg" alt=""><div class="caption">Bratislava, Slovakia, July 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/budapest.jpg" alt=""><div class="caption">Budapest, Hungary, July 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/PJATK.jpg" alt=""><div class="caption">With Pawel Nowacki, the chancellor of the Polish-Japanese Academy of Information Technology, Warsaw, Poland, June 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/high_school_reunion.jpg" alt=""><div class="caption">High school reunion (graduating class of 1969), Warsaw, Poland, June 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/zakopane.jpg" alt=""><div class="caption">Zakopane, Poland, June 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/talk1.jpg" alt=""><div class="caption">Keynote talk at the 22nd Conference on Artificial Intelligence and Soft Computing, Zakopane, Poland, June 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/wave.jpg" alt=""><div class="caption">Acquisition of Wave Systems; from left to right: Matt Michalewicz (CEO of Complexica), Zbigniew Michalewicz (Chief Scientist of Complexica), Constantin Chiriac (Chief Software Architect of Complexica), Jon Wheeler (Managing Director of Ports and Logistics at Complexica), Jon Drake (CFO of Complexica), Peter Pokorny (CEO and founder of Wave Systems), Hana Pokorna (Sales & Marketing Manager at Wave Systems), Adelaide, Australia, 31 May 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/bmw.jpg" alt=""><div class="caption">The youngest member of our family (Arthur) gets his first car, Adelaide, Australia, 18 May 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/dinner.jpg" alt=""><div class="caption">Family dinner after the Grand Prix Formula 1, Melbourne, Australia, 2 April 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/cl.jpg" alt=""><div class="caption">With Charles Leclerc :-), just before F1 races, Melbourne, Australia, March/April 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/mv.jpg" alt=""><div class="caption">With Max Verstappen :-), just before F1 races. The race was <a href="https://youtu.be/tpey7nFtVr0">spectacular</a>. Melbourne, Australia, March/April 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/visit.jpg" alt=""><div class="caption">With Kerry Smith, Richard Cohen, and many other Complexica people, Adelaide, Australia, March 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/Jump.jpg" alt=""><div class="caption">Sky-diving over my house at Semaphore Park, the <a href="https://www.youtube.com/watch?v=N8ZZVIwWcCE">jump</a> was incredible (from 15,000 feet). The <a href="https://youtu.be/SMo_uZENmMw">view</a> from the ground was also fantastic. Semaphore Park, Australia, 6 January 2023</div></div>
+      <div class="photo-card"><img src="Trav2023/Cars.jpg" alt=""><div class="caption">Yellow is a very pretty colour, isn't it?, Barossa Valey, Australia, January 2023</div></div>
+    </div>
+  </div>
+
+  <!-- 2022 -->
+  <div class="year-section" id="y2022">
+    <h2>2022</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2022/Portofino.jpg" alt=""><div class="caption">Getting delayed birthday gift - a new Portofino M; it was a pleasure to <a href="https://youtu.be/dt99XsPSSJ8">drive</a> it, finally!, Adelaide, Australia, 24 December 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/BJ.jpg" alt=""><div class="caption">At the final table (the best 7 players out of 43 participants) of the blackjack tournament - competing with my grandson Adam and 5 other individuals; check the final <a href="https://youtu.be/_qj37AJ8qiE">announcement</a> at the end of the tournament, The Ovation of the Seas, Royal Caribbean, somewhere at South Pacific, December 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/Dinner.jpg" alt=""><div class="caption">The Ovation of the Seas, Royal Caribbean, somewhere at South Pacific, December 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/Vanuatu.jpg" alt=""><div class="caption">At Vanuatu - my 53rd country that I visited, Vanuatu, December 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/Giza.jpg" alt=""><div class="caption"></div></div>
+      <div class="photo-card"><img src="Trav2022/Graduation.jpg" alt=""><div class="caption">Adam graduates from high school, Adelaide, Australia, November 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/Lunch.jpg" alt=""><div class="caption">Family lunch, Adelaide, Australia, August 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/EMO.jpg" alt=""><div class="caption">EMO, my personal assistant, being <a href="https://youtu.be/4TY_EeLWCNM">confused</a> a bit; this scene is similar to the <a href="https://www.youtube.com/watch?v=VKTT-sy0aLg&t=33s">mirror scene</a> from the Marx Brothers' most famous comedy (from 1933) "Duck Soup", Adelaide, Australia, May 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/award.jpg" alt=""><div class="caption">Getting award at Complexica - with Kostya, Larisa, Stuart Bibby (Pernod Ricard Winemakers), and Matt, Adelaide, Australia, April 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/Ukraine.jpg" alt=""><div class="caption">Supporting Ukraine at Complexica, Adelaide, Australia, April 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/Zbyszek.jpg" alt=""><div class="caption">At Complexica, Adelaide, Australia, March 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/car.jpg" alt=""><div class="caption">A new addition for family collection, Adelaide, Australia, February 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/cake.jpg" alt=""><div class="caption">Cake: my 70th birthday, Adelaide, Australia, 24 January 2022</div></div>
+      <div class="photo-card"><img src="Trav2022/blackjack.jpg" alt=""><div class="caption">Party: my 70th birthday, Adelaide, Australia, 24 January 2022</div></div>
+    </div>
+  </div>
+
+  <!-- 2021 -->
+  <div class="year-section" id="y2021">
+    <h2>2021</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2021/angels.jpg" alt=""><div class="caption">Charlie had his angels, so do I, The Bend Motorsport Park, South Australia, October 2021</div></div>
+      <div class="photo-card"><img src="Trav2021/TheBend.jpg" alt=""><div class="caption">At The Bend, before <a href="https://youtu.be/D-fS0MouMwg">driving</a> on the track, The Bend Motorsport Park, South Australia, October 2021</div></div>
+      <div class="photo-card"><img src="Trav2021/ferrari_day.jpg" alt=""><div class="caption">With Adam during the Ferrari Drive Day, Lot 100, South Australia, October 2021</div></div>
+      <div class="photo-card"><img src="Trav2021/vincent.jpg" alt=""><div class="caption">At the exhibition Van Gogh Live, Adelaide, Australia, September 2021</div></div>
+      <div class="photo-card"><img src="Trav2021/founders.jpg" alt=""><div class="caption">Founders of Complexica, Adelaide, Australia, 22 August 2021</div></div>
+      <div class="photo-card"><img src="Trav2021/show.jpg" alt=""><div class="caption">Attending Ferrari event with Adam: opening a new showroom, Adelaide, Australia, 17 June 2021</div></div>
+      <div class="photo-card"><img src="Trav2021/iga.jpg" alt=""><div class="caption">Attending the final match of the Adelaide International between Iga Swiatek (on the court) and Belinda Bencic (6:2, 6:2 for Iga); see two <a href="https://youtu.be/SDrJV7UlZ_w">championship</a> points (the second one was successful), Adelaide, Australia, 27 February 2021</div></div>
+      <div class="photo-card"><img src="Trav2021/card.jpg" alt=""><div class="caption">Getting birthday card from Complexica team, Adelaide, Australia, 24 January 2021</div></div>
+      <div class="photo-card"><img src="Trav2021/soccer2.jpg" alt=""><div class="caption">Just before another soccer game, Adelaide, Australia, 23 January 2021</div></div>
+      <div class="photo-card"><img src="Trav2021/beach.jpg" alt=""><div class="caption">Enjoying summer at the beach, Adelaide, Australia, 10 January 2021</div></div>
+      <div class="photo-card"><img src="Trav2021/soccer.jpg" alt=""><div class="caption">Friendly soccer game, with <a href="https://youtu.be/7xTxNEyGgrs">one</a> or <a href="https://youtu.be/JCo3xqgpQ10">two</a> interesting actions, Adelaide, Australia, 3 January 2021</div></div>
+    </div>
+  </div>
+
+  <!-- 2020 -->
+  <div class="year-section" id="y2020">
+    <h2>2020</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2020/adelaide.jpg" alt=""><div class="caption">Waiting for the New Year, Adelaide, Australia, 31 December 2020</div></div>
+      <div class="photo-card"><img src="Trav2020/toyota.jpg" alt=""><div class="caption">Adam is getting his car for 16th birthday (one month earlier), Adelaide, Australia, November 2020</div></div>
+      <div class="photo-card"><img src="Trav2020/blackjack.jpg" alt=""><div class="caption">Blackjack competition for Complexica employees, Adelaide, Australia, October 2020</div></div>
+      <div class="photo-card"><img src="Trav2020/wine_tasting2.jpg" alt=""><div class="caption">Wine tasting afternoon - Complexica team, Adelaide, Australia, September 2020</div></div>
+      <div class="photo-card"><img src="Trav2020/wine_tasting.jpg" alt=""><div class="caption">Wine tasting, Adelaide, Australia, August 2020</div></div>
+      <div class="photo-card"><img src="Trav2020/soccer2.jpg" alt=""><div class="caption">Complexica's soccer game, Adelaide, Australia, February 2020</div></div>
+      <div class="photo-card"><img src="Trav2020/soccer1.jpg" alt=""><div class="caption">Complexica's soccer game, Adelaide, Australia, February 2020</div></div>
+    </div>
+  </div>
+
+  <!-- 2019 -->
+  <div class="year-section" id="y2019">
+    <h2>2019</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2019/contract.jpg" alt=""><div class="caption">Signing a HUGE contract at Complexica, Adelaide, Australia, November 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/sydney.jpg" alt=""><div class="caption">Sydney, Australia, October 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/shooting.jpg" alt=""><div class="caption">Practicing shooting skills (moving targets): <a href="https://youtu.be/SNN-ms5SfsE">shot #1</a>, <a href="https://youtu.be/9DhSZ1gCOlA">shot #2</a>, <a href="https://youtu.be/FW7YsEWcMEM">shot #3</a>, and <a href="https://youtu.be/WqvPqJXXuHU">shot #4</a>, Adelaide, Australia, September 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/Ferrari_488_Spider.jpg" alt=""><div class="caption">Finding a meaningful personalised licence plate for 488 Spider is far from trivial, Barossa Valley, Australia, August 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/award.jpg" alt=""><div class="caption">Complexica's award team, Adelaide, Australia, August 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/lew.jpg" alt=""><div class="caption">With Lew Owens, Old Town, Warsaw, Poland, August 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/with_kids.jpg" alt=""><div class="caption">With Adam and Arthur, Zakopane, Poland, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/dinner.jpg" alt=""><div class="caption">With Complexica team, Chisinau, Moldova, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/warsaw.jpg" alt=""><div class="caption">With Kostya, Larisa and Sabina, Warsaw, Poland, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/castle.jpg" alt=""><div class="caption">Voergaard Castle, Denmark, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/skagen.jpg" alt=""><div class="caption">On streets of Skagen, Denmark, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/stockholm2.jpg" alt=""><div class="caption">Old Town, Stockholm, Sweden, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/helsinki.jpg" alt=""><div class="caption">Norra Esplanaden, Helsinki, Finland, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/porvoo.jpg" alt=""><div class="caption">Old Town, Porvoo, Finland, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/boat.jpg" alt=""><div class="caption">Arthur's 13th birthday, on Brilliance of the Seas, Gulf of Finland, Baltic Sea, 12 July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/rasputin.jpg" alt=""><div class="caption">With Rasputin, a few moments before the first shot is fired, Yusupov Palace, St. Petersburg, Russia, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/church.jpg" alt=""><div class="caption">In front of the St. Isaac's Cathedral, St. Petersburg, Russia, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/petersburg.jpg" alt=""><div class="caption">At the Church of the Savior on Spilled Blood, St. Petersburg, Russia, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/winter_palace.jpg" alt=""><div class="caption">Winter Palace (Hermitage Museum), Neva River, St. Petersburg, Russia, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/tallinn2.jpg" alt=""><div class="caption">Old Town, Tallinn, Estonia, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/tallinn1.jpg" alt=""><div class="caption">In front of the Estonian Academy of Sciences, Tallinn, Estonia, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/mermaid.jpg" alt=""><div class="caption">With mermaid in Copenhagen, Denmark, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/copenhagen.jpg" alt=""><div class="caption">Copenhagen, Denmark, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/amsterdam.jpg" alt=""><div class="caption">Amsterdam, Netherlands, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/last_supper.jpg" alt=""><div class="caption">Admiring "The Last Supper", the Convent of Santa Maria delle Grazie in Milan, Italy, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/pagani.jpg" alt=""><div class="caption">Visiting Pagini factory, San Cesario sul Panaro, near Modena, Italy, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/lamborghini.jpg" alt=""><div class="caption">Visiting Lamborghini factory, Sant'Agata Bolognese, Emilia-Romagna, Italy, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/ferrari.jpg" alt=""><div class="caption">Visiting Ferrari factory, Maranello, Italy, July 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/zakopane1.jpg" alt=""><div class="caption">Giving a keynote talk at the 18th Conference on Artificial Intelligence and Soft Computing (ICAISC 2019), Zakopane, Poland, June 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/50_years.jpg" alt=""><div class="caption">Reunion - 50 years from high school graduation, Warsaw, Poland, June 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/Jon.jpg" alt=""><div class="caption">With Jon and Helen Simpson, Warsaw, Poland, June 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/hahndorf.jpg" alt=""><div class="caption">Family day at Hahndorf, Hahndorf, South Australia, February 2019</div></div>
+      <div class="photo-card"><img src="Trav2019/magic_show.jpg" alt=""><div class="caption">Running a magic show at HairCare, Adelaide, Australia, January 2019</div></div>
+    </div>
+  </div>
+
+  <!-- 2018 -->
+  <div class="year-section" id="y2018">
+    <h2>2018</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2018a/sydney.jpg" alt=""><div class="caption">Sydney, Australia, December 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/tony.jpg" alt=""><div class="caption">With Tony Vignaux, just before my keynote talk at the 31st Australasian Joint Conference on AI, Wellington, New Zealand, December 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/wellington.jpg" alt=""><div class="caption">Wellington, New Zealand, December 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/seoul_talk.jpg" alt=""><div class="caption">Keynote talk at the AI Summit, Seoul, South Korea, December 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/magic.jpg" alt=""><div class="caption">At the Magic Master Class with Morgan Strebler, Sydney, Australia, November 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/win.jpg" alt=""><div class="caption">Winning the 2018 Science Excellence <a href="https://www.youtube.com/watch?v=kKOlyjkEAWw">Award</a> in the category of STEM Professional (Science, Technology, Engineering and Mathematics), Adelaide, Australia, 10 August 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/gala.jpg" alt=""><div class="caption">With Larisa and Constantin at the gala dinner for the 2018 Science Excellence Awards, Adelaide, Australia, 10 August 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/casino2.jpg" alt=""><div class="caption">After winning blackjack <a href="https://youtu.be/fQ8Q0Q3iFEs">competition</a> on the Jewel of the Seas, somewhere between Sardinia and Rome, 28 July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/cagliari5.jpg" alt=""><div class="caption">Cagliari, Sardinia, Italy, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/caves1.jpg" alt=""><div class="caption">Caves of Drach, Porto Cristo, Majorca, Spain, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/palma_de_mallorca.jpg" alt=""><div class="caption">Palma de Mallorca, Spain, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/basilica.jpg" alt=""><div class="caption">At the Basílica de la Sagrada Família, Barcelona, Spain, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/napoleon.jpg" alt=""><div class="caption">At the monument of Napoleon Bonaparte, Ajaccio, Corsica, France, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/corsica.jpg" alt=""><div class="caption">Corsica, France, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/eze.jpg" alt=""><div class="caption">At the Eze Village, southeastern France, not far from the city of Nice, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/casino.jpg" alt=""><div class="caption">At the Casino Monte Carlo, Monaco, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/casino_inside.jpg" alt=""><div class="caption">Inside the Casino Monte Carlo, Monaco, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/monaco.jpg" alt=""><div class="caption">With Arthur and Adam, Monaco, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/my2.jpg" alt=""><div class="caption">Monaco, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/dzwon_zygmunta.jpg" alt=""><div class="caption">At the Zygmunt Bell, Wawel, Cracow, Poland, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/mushroom_icecream.jpg" alt=""><div class="caption">Mushroom icecream, Wierzynek, Cracow, Poland, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/collegium_maius.jpg" alt=""><div class="caption">At the Collegium Maius, Cracow, Poland, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018a/strzyzowice.jpg" alt=""><div class="caption">With family, Strzyzowice, Poland, July 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/dunes13.jpg" alt=""><div class="caption">Exploring dunes, UAE, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/ferrari_world.jpg" alt=""><div class="caption">With Matt - entering the Ferrari World - and on the way to the fastest roller-coaster in the world, Abu Dhabi, UAE, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/falcon9.jpg" alt=""><div class="caption">With falcon, somewhere in a desert, UAE, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/falcon7.jpg" alt=""><div class="caption">With another falcon, Abu Dhabi Falcon Hospital, UAE, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/top_Burj Khalifa2.jpg" alt=""><div class="caption">At the top of the Burj Khalifa tower, Dubai, UAE, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/blackjack.jpg" alt=""><div class="caption">After winning blackjack <a href="https://youtu.be/dDWZQoVo29s">competition</a> on the Mariner of the Seas, somewhere at the Arabian Sea, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/oman3.jpg" alt=""><div class="caption">Muscat, Oman, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/goddess_durga_goa.jpg" alt=""><div class="caption">At the Temple of the Goddess Durga, Goa, India, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/kochi1.jpg" alt=""><div class="caption">Kochi, India, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/slon.jpg" alt=""><div class="caption">Phuket, Thailand, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/wine.jpg" alt=""><div class="caption">Enjoying glass of wine on the boat, somewhere close to Thailand, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/boat.jpg" alt=""><div class="caption">On the cruise boat: from Singapore to Dubai, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/singapore2.jpg" alt=""><div class="caption">With Adam and Arthur at the top of Marina Bay Sands Hotel, Singapore, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/singapore1.jpg" alt=""><div class="caption">Singapore, April 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/february.jpg" alt=""><div class="caption">Playing friendly soccer (Complexica players), Adelaide, Australia, February 2018</div></div>
+      <div class="photo-card"><img src="Trav2018/january.jpg" alt=""><div class="caption">Complexica's weekend meeting, Adelaide, Australia, January 2018</div></div>
+    </div>
+  </div>
+
+  <!-- 2017 -->
+  <div class="year-section" id="y2017">
+    <h2>2017</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2017/grad2.jpg" alt=""><div class="caption">With my grandson, Adam, on his graduation day (West Lakes Shore School), Adelaide, Australia, 14 December 2017</div></div>
+      <div class="photo-card"><img src="Trav2017/soccer.jpg" alt=""><div class="caption">After winning 7 : 6 a soccer game, two teams of 3 players each, Adelaide, November 2017</div></div>
+      <div class="photo-card"><img src="Trav2017/restaurant.jpg" alt=""><div class="caption">Be careful: at some restaurants the waiting time is very long...:-), Adelaide, November 2017</div></div>
+      <div class="photo-card"><img src="Trav2017/wystawa.jpg" alt=""><div class="caption">At the opening of a bar in Port Adelaide - and a display of photos of my daughter-in-law, Luiza, Adelaide, October 2017</div></div>
+      <div class="photo-card"><img src="Trav2017/Oktoberfest-in-hahndorf.jpg" alt=""><div class="caption">With family at the Oktoberfest, Hahndorf, Australia, October 2017</div></div>
+      <div class="photo-card"><img src="Trav2017/Marek.jpg" alt=""><div class="caption">With Marek Michalewicz, restaurant "Pasieka", Warsaw, Poland, August 2017</div></div>
+      <div class="photo-card"><img src="Trav2017/prague1.jpg" alt=""><div class="caption">Enjoying <a href="https://youtu.be/uzHmR6Li99A">becherovka</a>, Prague, Czech Republic, September 2017</div></div>
+      <div class="photo-card"><img src="Trav2017/suchabeskidzka.jpg" alt=""><div class="caption">In front of the inn "Rzym" - the very place where devil captered Twardowski, Sucha Beskidzka, Poland, August 2017</div></div>
+      <div class="photo-card"><img src="Trav2017/checiny.jpg" alt=""><div class="caption">With Adam and Arthur at the Checiny Castle, Poland, August 2017</div></div>
+      <div class="photo-card"><img src="Trav2017/moldova2.jpg" alt=""><div class="caption">With family at a monastery, Moldova, August 2017</div></div>
+      <div class="photo-card"><img src="Trav2017/moldova1.jpg" alt=""><div class="caption">Visiting a winery, Moldova, August 2017</div></div>
+      <div class="photo-card"><img src="Trav2017/marc.jpg" alt=""><div class="caption">With Marc Schoenauer, Adelaide Hills, Australia, February 2017</div></div>
+    </div>
+  </div>
+
+  <!-- 2016 -->
+  <div class="year-section" id="y2016">
+    <h2>2016</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2016b/macau3.jpg" alt=""><div class="caption">Macau, at the casino's entrance, November 2016</div></div>
+      <div class="photo-card"><img src="Trav2016b/macau2.jpg" alt=""><div class="caption">Macau, November 2016</div></div>
+      <div class="photo-card"><img src="Trav2016b/macau1.jpg" alt=""><div class="caption">On the Tower of Macau, November 2016</div></div>
+      <div class="photo-card"><img src="Trav2016b/korea.jpg" alt=""><div class="caption">South Korea, November 2016</div></div>
+      <div class="photo-card"><img src="Trav2016b/miyazaki1.jpg" alt=""><div class="caption">Miyazaki, Japan, November 2016</div></div>
+      <div class="photo-card"><img src="Trav2016b/game.jpg" alt=""><div class="caption">Family soccer game on the cruise boat "Ovation of the Seas", November 2016</div></div>
+      <div class="photo-card"><img src="Trav2016b/kochi1.jpg" alt=""><div class="caption">Kochi, Japan, November 2016</div></div>
+      <div class="photo-card"><img src="Trav2016b/dinner.jpg" alt=""><div class="caption">Dinner on the cruise boat "Ovation of the Seas", November 2016</div></div>
+      <div class="photo-card"><img src="Trav2016b/hk1.jpg" alt=""><div class="caption">Hong Kong harbour, November 2016</div></div>
+      <div class="photo-card"><img src="Trav2016/dubai1.jpg" alt=""><div class="caption">Dubai, UAE, September 2016</div></div>
+      <div class="photo-card"><img src="Trav2016/dubai3.jpg" alt=""><div class="caption">Dubai, UAE, September 2016</div></div>
+      <div class="photo-card"><img src="Trav2016/TechUniWarsaw.jpg" alt=""><div class="caption">At the front of the Technical University of Warsaw, Poland, August 2016</div></div>
+      <div class="photo-card"><img src="Trav2016/M2.JPG" alt=""><div class="caption">With family, Warsaw, Poland, August 2016</div></div>
+      <div class="photo-card"><img src="Trav2016/birds.jpg" alt=""><div class="caption">Warsaw, Poland, August 2016</div></div>
+      <div class="photo-card"><img src="Trav2016/wierzynek.jpg" alt=""><div class="caption">One of the oldest Polish restaurants Wierzynek, Krakow, Poland, August 2016</div></div>
+      <div class="photo-card"><img src="Trav2016/wieliczka2.jpg" alt=""><div class="caption">Famous salt mine, Wieliczka, Poland, August 2016</div></div>
+      <div class="photo-card"><img src="Trav2016/wieliczka.jpg" alt=""><div class="caption">Famous salt mine, Wieliczka, Poland, August 2016</div></div>
+      <div class="photo-card"><img src="Trav2016/marysia.jpg" alt=""><div class="caption">With family, Warsaw, Poland, July 2016</div></div>
+      <div class="photo-card"><img src="Trav2016/moldova2.JPG" alt=""><div class="caption">Moldova, Complexica team, July 2016</div></div>
+      <div class="photo-card"><img src="Trav2016/moldova1.jpg" alt=""><div class="caption">Moldova, Complexica team, July 2016</div></div>
+    </div>
+  </div>
+
+  <!-- 2015 -->
+  <div class="year-section" id="y2015">
+    <h2>2015</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2015/family.JPG" alt=""><div class="caption">With closest family, Adelaide, Australia, October 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/reza.jpg" alt=""><div class="caption">Graduation of my PhD student, Reza Bonyadi, Adelaide, Australia, September 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/warsaw2.JPG" alt=""><div class="caption">With Ben and Natalie, Warsaw, Poland, August 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/Florence.jpg" alt=""><div class="caption">Florence, Italy, August 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/Ponte.jpg" alt=""><div class="caption">On Ponte Vecchio, Florence, Italy, August 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/warsaw.jpg" alt=""><div class="caption">Celebrating our anniversary, Warsaw, Poland, 2nd August 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/Ephesos.JPG" alt=""><div class="caption">Ephesos, Grece, July 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/Minos.JPG" alt=""><div class="caption">Minos palace in Knossos, Grece, July 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/Santorini1.JPG" alt=""><div class="caption">Santorini, Grece, July 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/Santorini2.JPG" alt=""><div class="caption">Santorini, Grece, July 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/Santorini3.jpg" alt=""><div class="caption">Male part of the closest family plus "uncle" Vinh, Santorini, Grece, July 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/boat.jpg" alt=""><div class="caption">On a cruise ship at the Mediterranean, July 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/Rome.JPG" alt=""><div class="caption">Rome, Italy, July 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/Disneyland.jpg" alt=""><div class="caption">Disneyland, France, June 2015</div></div>
+      <div class="photo-card"><img src="Trav2015/founders.JPG" alt=""><div class="caption">Founders of Complexica - moving to our new office, Adelaide, Australia, April 2015</div></div>
+    </div>
+  </div>
+
+  <!-- 2014 -->
+  <div class="year-section" id="y2014">
+    <h2>2014</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2014/dunedin2.JPG" alt=""><div class="caption">With Tan Kay Chen and Xin Yao, Dunedin, New Zealand, December 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/dunedin1.JPG" alt=""><div class="caption">Dunedin, New Zealand, December 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/auckland2.JPG" alt=""><div class="caption">With Sergiy Klymchuk, Auckland, New Zealand, November 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/aut.JPG" alt=""><div class="caption">A lecture at the STEM Tertiary Education Centre, Auckland University of Technology, Auckland, New Zealand, November 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/warsaw1.JPG" alt=""><div class="caption">Warsaw, late August 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/barcelona.JPG" alt=""><div class="caption">Barcelona, August 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/alch3.JPG" alt=""><div class="caption">In my new office (I decided to become an alchemist), undisclosed location, July 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/alch4.JPG" alt=""><div class="caption">Holding elixir of eternal youth (on the right, left hand) and elixir of love, July 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/prague6.JPG" alt=""><div class="caption">On Charles Bridge, Prague, Czech Republic, July 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/prague5.JPG" alt=""><div class="caption">At the statue of St John of Nepomuk (Divi Ioanni Nepomuceno) on Charles Bridge, Prague, Czech Republic, July 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/prague3.JPG" alt=""><div class="caption">Main square, Old Town, Prague, Czech Republic, July 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/prague2.JPG" alt=""><div class="caption">Main square, Old Town, Prague, Czech Republic, July 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/budapest1.JPG" alt=""><div class="caption">Budapest, Hungary, June 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/budapest2.JPG" alt=""><div class="caption">Budapest, Hungary, June 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/bochnia.JPG" alt=""><div class="caption">Bochnia, Poland, May 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/ipipan.JPG" alt=""><div class="caption">In front of the Institute of Computer Science, Polish Academy of Sciences, Warsaw, May 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/exhibition.JPG" alt=""><div class="caption">With my daughter-in-law, Luiza, on her photographic exhibition, Hindmarsh Island, South Australia, April 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/one_plus_one.JPG" alt=""><div class="caption">Experiencing (and enjoying) some of the greatest mathematical truths: one plus one equals two, and not all one's are the same..., Adelaide, April 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/maryla.JPG" alt=""><div class="caption">With my sister, Maryla, Adelaide, February 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/syd3.JPG" alt=""><div class="caption">Sydney, February 2014</div></div>
+      <div class="photo-card"><img src="Trav2014/syd2.JPG" alt=""><div class="caption">Sydney, February 2014</div></div>
+    </div>
+  </div>
+
+  <!-- 2013 -->
+  <div class="year-section" id="y2013">
+    <h2>2013</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2013/founders.JPG" alt=""><div class="caption">Founders of SolveIT Software enjoy a ride on Lake Rotoiti, New Zealand, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/wellington1.JPG" alt=""><div class="caption">With family in the front of the building I used to live 30 years ago, Wellington, New Zealand, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/wellington2.JPG" alt=""><div class="caption">Wellington, New Zealand, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/wellington3.JPG" alt=""><div class="caption">With family in the front of the building that I built almost 30 years ago, Wellington, New Zealand, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/wellington4.JPG" alt=""><div class="caption">With Matt, Wellington, New Zealand, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/wellington5.JPG" alt=""><div class="caption">My family, Wellington, New Zealand, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/Tauranga.JPG" alt=""><div class="caption">Tauranga, New Zealand, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/Rangitoto.JPG" alt=""><div class="caption">On the top of volcano Rangitoto, New Zealand, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/Auckland.JPG" alt=""><div class="caption">Approaching Auckland, New Zealand, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/NewCaledonia.JPG" alt=""><div class="caption">Exploring South Pacific Islands, New Caledonia, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/bridge.JPG" alt=""><div class="caption">With my family and the Captain of the Voyager of the Seas, Mr. Sverre Ryan, on the bridge, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/Fiji.JPG" alt=""><div class="caption">Exploring South Pacific Islands, Fiji, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/wedding.JPG" alt=""><div class="caption">Unexpected wedding, New Caledonia, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/lighthouse2.JPG" alt=""><div class="caption">In front of Amedee lighthouse, New Caledonia, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/lighthouse1.JPG" alt=""><div class="caption">On the top of Amedee lighthouse, New Caledonia, November 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/canberra.jpg" alt=""><div class="caption">With my Evolutionary Computation friends, Canberra, Australia, September 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/disneyland.JPG" alt=""><div class="caption">With my grandsons, Adam and Arthur, Disneyland, France, August 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/breakfast.JPG" alt=""><div class="caption">Serving food to some characters, Disneyland, France, August 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/kingdom.JPG" alt=""><div class="caption">In the Kingdom of the Gnomes, undisclosed location, August 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/Warsaw2.JPG" alt=""><div class="caption">Some relaxing moments with Kasia, Tobias, Natalia, Adam, and Arthur, Warsaw, Poland, July 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/Warsaw3.JPG" alt=""><div class="caption">New skyline of Warsaw, Warsaw, Poland, June 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/meeting.JPG" alt=""><div class="caption">Meeting with Arnold Schwarzenegger (I am the guy on the left...:-), Melbourne, Australia, June 2013</div></div>
+      <div class="photo-card"><img src="Trav2013/Easter.JPG" alt=""><div class="caption">Experiencing white Easter, Warsaw, April 2013</div></div>
+    </div>
+  </div>
+
+  <!-- 2012 -->
+  <div class="year-section" id="y2012">
+    <h2>2012</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2012/ferrari.JPG" alt=""><div class="caption">Santa Claus came early this year and another of my dreams came true: in my new Ferrari California, Adelaide, October 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/france.JPG" alt=""><div class="caption">Family dinner in France, France, October 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/mistery1.JPG" alt=""><div class="caption">Family photo, some mystery place, France, October 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/relax.JPG" alt=""><div class="caption">Some relaxing moments, Warsaw, September 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/paris1.JPG" alt=""><div class="caption">In the Le Jules Verne restaurant, 125 meters above the ground at the Eiffel Tower, Paris, France, June 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/paris2.JPG" alt=""><div class="caption">By myself, Paris, France, June 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/warsaw1.JPG" alt=""><div class="caption">With my wife and our close friends: Larisa and Kostya, Warsaw, June 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/moldova1.jpg" alt=""><div class="caption">With friends, Chisinau, Moldova, June 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/moldova2.JPG" alt=""><div class="caption">At SolveIT Software office in Moldova, Moldova, June 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/moldova3.JPG" alt=""><div class="caption">In the front of the house where Alexander Sergeyevich Pushkin lived for a while during his exile, Moldova, June 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/moldova4.JPG" alt=""><div class="caption">Country side near Orhei Vechi - a historical and archaeological complex that includes cave monastery and a church, Moldova, June 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/moldova5.JPG" alt=""><div class="caption">With friends at Milestii Mici - underground cellar that has a wine collection of 1.5 million bottles and is listed as The Largest Quality Wine Collection In the World in the Guinness World Records, Moldova 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/romania1.JPG" alt=""><div class="caption">With Henri Luchian, Iasi, Romania, June 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/romania2.JPG" alt=""><div class="caption">With Ken De Jong, Iasi, Romania, June 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/house2.jpg" alt=""><div class="caption">Moving to a new house, Adelaide, Australia, February 2012</div></div>
+      <div class="photo-card"><img src="Trav2012/house3.jpg" alt=""><div class="caption">View from the house, Adelaide, Australia, February 2012</div></div>
+    </div>
+  </div>
+
+  <!-- 2011 -->
+  <div class="year-section" id="y2011">
+    <h2>2011</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2011/grand.jpg" alt=""><div class="caption">One of these four is my mother-in-law..., Poland, August 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/warsaw2.JPG" alt=""><div class="caption">Class Reunion - 37 years after graduating from university, Warsaw, Poland, 9 July 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/blackjack.JPG" alt=""><div class="caption">Winning an international blackjack competition, Mariner of the Seas, somewhere at the Mediterranean Sea, 27 June 2011. During the qualifying round, the competitors were organised into separate tables; at each table there were 7 players and we played -</div></div>
+      <div class="photo-card"><img src="Trav2011/acropolis.JPG" alt=""><div class="caption">Acropolis, Greece, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/athens.JPG" alt=""><div class="caption">Athens, Greece, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/capri.JPG" alt=""><div class="caption">Capri, Italy, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/sorrento.JPG" alt=""><div class="caption">Sorrento, Italy, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/pompeii.JPG" alt=""><div class="caption">Red-light district of Pompeii, Italy, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/jordan.JPG" alt=""><div class="caption">Jordan River, Isreal, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/jerusalem1.JPG" alt=""><div class="caption">Jerusalem, Isreal, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/dolorosa.JPG" alt=""><div class="caption">Via Dolorosa, Jerusalem, Isreal, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/jerusalem2.JPG" alt=""><div class="caption">Jerusalem, Isreal, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/kusadasi.JPG" alt=""><div class="caption">Kusadasi, Turkey, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/esphesus1.JPG" alt=""><div class="caption">Esphesus, Turkey, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/esphesus2.JPG" alt=""><div class="caption">Esphesus, Turkey, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/crete.JPG" alt=""><div class="caption">Crete, Greece, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/rhodes.JPG" alt=""><div class="caption">Rhodes, Greece, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/boat.JPG" alt=""><div class="caption">On the boat on the Mediterranean Sea, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/blue_mosque.JPG" alt=""><div class="caption">Istanbul, Turkey, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/warsaw1.jpg" alt=""><div class="caption">Class Reunion - 42 years after graduating from high school, Warsaw, Poland, 11 June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/warsaw3.jpg" alt=""><div class="caption">Warsaw, Poland, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/warsaw4.JPG" alt=""><div class="caption">Warsaw, Poland, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/warsaw5.jpg" alt=""><div class="caption">Warsaw, Poland, June 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/jackpot.JPG" alt=""><div class="caption">Winning BIG jackpot in a casino for kids, Adelaide, Australia, April 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/Sydney.jpg" alt=""><div class="caption">Walking on Sydney Harbour Bridge, Sydney, Australia, January 2011</div></div>
+      <div class="photo-card"><img src="Trav2011/lodki.JPG" alt=""><div class="caption">Adelaide, Australia, January 2011</div></div>
+    </div>
+  </div>
+
+  <!-- 2008–2010 -->
+  <div class="year-section" id="y2008">
+    <h2>2008–2010</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2008/ppsn.JPG" alt=""><div class="caption">With Darrell Whitley, Ken de Jong, and Gusz Eiben, PPSN 2010, Krakow, September 2010</div></div>
+      <div class="photo-card"><img src="Trav2008/warsaw09.jpg" alt=""><div class="caption">Warsaw, Poland, June 2009</div></div>
+      <div class="photo-card"><img src="Trav2008/seaworld.jpg" alt=""><div class="caption">Gold Coast, Australia, April 2009</div></div>
+      <div class="photo-card"><img src="Trav2008/clipsal2.jpg" alt=""><div class="caption">Clipsal 500, Adelaide, Australia, March 2009</div></div>
+      <div class="photo-card"><img src="Trav2008/sunset.jpg" alt=""><div class="caption">With my sister, Maryla, on Adelaide's beach, Australia, December 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/Holy_Grail.jpg" alt=""><div class="caption">In search for Holy Grail, Cathedral of Valencia, Spain, September 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/river.jpg" alt=""><div class="caption">Crusing on Murray River with two pilots, Australia, July 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/robin.jpg" alt=""><div class="caption">Fulfilling a dream from 40 years ago: with Robin Hood at the Notthingham Castle, Nottingham, UK, June 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/warsaw.jpg" alt=""><div class="caption">Warsaw, Poland, June 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/drakula.jpg" alt=""><div class="caption">With Vlad Dracula in front of his castle, Romania, June 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/bucharest.jpg" alt=""><div class="caption">Bucharest, Romania, June 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/iasi3.JPG" alt=""><div class="caption">Wine tasting near Iasi, Romania, June 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/iasi2.JPG" alt=""><div class="caption">Searching for more wine..., near Iasi, Romania, June 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/brodno.jpg" alt=""><div class="caption">The 2nd largest cemetery in Europe, Brodno, Warsaw, Poland, May 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/exh.jpg" alt=""><div class="caption">Art Exhibition, Adelaide, Australia, May 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/Phuket.jpg" alt=""><div class="caption">Phuket, Thailand, April 2008</div></div>
+      <div class="photo-card"><img src="Trav2008/larisa.JPG" alt=""><div class="caption">With Larisa (MBA graduation), University of Adelaide, Australia, March 2008</div></div>
+    </div>
+  </div>
+
+  <!-- 2006–2007 -->
+  <div class="year-section" id="y2006">
+    <h2>2006–2007</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2006/Zoo.jpg" alt=""><div class="caption">Adelaide Zoo, Australia, November 2007</div></div>
+      <div class="photo-card"><img src="Trav2006/tours1.jpg" alt=""><div class="caption">Chateau Royal d'Amboise, France, October 2007</div></div>
+      <div class="photo-card"><img src="Trav2006/tours2.jpg" alt=""><div class="caption">At the tomb of Leonardo da Vinci, Chateau Royal d'Amboise, France, October 2007</div></div>
+      <div class="photo-card"><img src="Trav2006/warsaw.jpg" alt=""><div class="caption">Warsaw, Poland, June 2007</div></div>
+      <div class="photo-card"><img src="Trav2006/saban.jpg" alt=""><div class="caption">Getting appointment as South Australia Business Ambassador, Adelaide, Australia, November 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/hefei.jpg" alt=""><div class="caption">Hefei, China, October 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/hk1.jpg" alt=""><div class="caption">Hong Kong, October 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/hk2.jpg" alt=""><div class="caption">With Jun Wang, Chinese University of Hong Kong, Hong Kong, October 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/Winning Credibility Book Launch.JPG" alt=""><div class="caption">Launching a new book "Winning Credibility: A Guide for Building a Business from Rags to Riches" (<a href="http://www.credibility.com.au/">www.credibility.com.au</a>) at the American Chamber of Commerce event at the Hyatt Regency Hotel, Adelaide, Australia, 26 July 2006.</div></div>
+      <div class="photo-card"><img src="Trav2006/fapm.jpg" alt=""><div class="caption">Gold Coast, Australia, July 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/Romania/Picture 028.jpg" alt=""><div class="caption">With Henri Luchian, Romania, June 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/Romania/Picture 024.jpg" alt=""><div class="caption">Carpathian Mountains, Romania, 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/Poland/ximg_0435.jpg" alt=""><div class="caption">With Ken de Jong, Marc Schoenauer, Xin Yao, Guenter Rudolph (hard to find some of them, including myself, on this photo). Zakopane, Poland, June 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/Poland/xp1010035.jpg" alt=""><div class="caption">With Ken de Jong and Guenter Rudolph; important discussion on differences between genetic algorithms and evolution strategies. Zakopane, Poland, June 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/Poland/ximg_0469.jpg" alt=""><div class="caption">Zakopane, Poland, June 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/family.jpg" alt=""><div class="caption">Adelaide, Australia, May 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/kostya2.jpg" alt=""><div class="caption">Adelaide, Australia, May 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/fuji.jpg" alt=""><div class="caption">With Jonathan Ikegami and Takuya Okumura, Mt. Fuji, Japan, March 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/tokyo.jpg" alt=""><div class="caption">Tokyo, Japan, March 2006</div></div>
+      <div class="photo-card"><img src="Trav2006/founders.jpg" alt=""><div class="caption">A few founders of SolveIT Software celebrate a New Year, Adelaide, Australia, January 2nd, 2006</div></div>
+    </div>
+  </div>
+
+  <!-- 2005 -->
+  <div class="year-section" id="y2005">
+    <h2>2005</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Trav2005/grand.jpg" alt=""><div class="caption">Adelaide, Australia, November 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/Well.jpg" alt=""><div class="caption">Wellington, New Zealand, October 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/sign.jpg" alt=""><div class="caption">Author's evening: signing copies of Polish translation of "Credibility: The Critical Success Factor," Warsaw, Poland, September 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/DSC00688.JPG" alt=""><div class="caption">Warsaw, Poland, September 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/DSC00122.JPG" alt=""><div class="caption">With Marc Schoenauer and Gusz Eiben at Loch Katerina, Scotland, September 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/castle.JPG" alt=""><div class="caption">Kreuzenstein Castle, Austria, August 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/PICT0031.JPG" alt=""><div class="caption">Osaka, Japan, August 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/AdelaideHome.jpg" alt=""><div class="caption">At home in Adelaide, Australia, June 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/wuhan11.jpg" alt=""><div class="caption">With Hans-Paul Schwefel and Xin Yao, Wuhan, China, April 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/fot1.jpg" alt=""><div class="caption">Three Gorges, Yangtze River, China, April 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/fot2.jpg" alt=""><div class="caption">Drinking from the spring of wisdom, Three Gorges, Yangtze River, China, April 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/fot3.jpg" alt=""><div class="caption">With Bob McKay, after winning a boat racing competition on Yangtze River, China, April 2005</div></div>
+      <div class="photo-card"><img src="Trav2005/fot4.jpg" alt=""><div class="caption">Wuhan, China, April 2005</div></div>
+    </div>
+  </div>
+
+  <!-- 2004 -->
+  <div class="year-section" id="y2004">
+    <h2>2004</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Yunjun/pope.jpg" alt=""><div class="caption">John Paul II receives his portrait (painted by my wife) from the art director of his museum, Vatican, September 2004</div></div>
+      <div class="photo-card"><img src="Yunjun/gold.jpg" alt=""><div class="caption">Gold Cost, Australia, July 2004</div></div>
+      <div class="photo-card"><img src="Yunjun/y45.jpg" alt=""><div class="caption">Warsaw, Poland, June 2004</div></div>
+      <div class="photo-card"><img src="Yunjun/y41.jpg" alt=""><div class="caption">Salerno, Italy, June 2004</div></div>
+      <div class="photo-card"><img src="Yunjun/y37.jpg" alt=""><div class="caption">Paestum, Italy, June 2004</div></div>
+      <div class="photo-card"><img src="Yunjun/y36.jpg" alt=""><div class="caption">Amalfi Coast, Italy, June 2004</div></div>
+      <div class="photo-card"><img src="Yunjun/y38.jpg" alt=""><div class="caption">"With" the Pope (who is in the second window from the right),</div></div>
+      <div class="photo-card"><img src="Yunjun/y40.jpg" alt=""><div class="caption">Trevi Fountain, Rome, Italy, June 2004</div></div>
+      <div class="photo-card"><img src="Yunjun/y39.jpg" alt=""><div class="caption">Spanish Steps, Rome, Italy, June 2004</div></div>
+      <div class="photo-card"><img src="Yunjun/lofti.jpg" alt=""><div class="caption">With Lofti Zadeh and Zbyszek Ras, Plock, Poland, June 2004</div></div>
+      <div class="photo-card"><img src="Yunjun/y44.jpg" alt=""><div class="caption">Warsaw, Poland, May 2004</div></div>
+      <div class="photo-card"><img src="ag1.jpg" alt=""><div class="caption">Kazimierz Dolny, Poland, May 2004</div></div>
+      <div class="photo-card"><img src="Yunjun/y42.jpg" alt=""><div class="caption">Coimbra, Portugal, April 2004</div></div>
+      <div class="photo-card"><img src="Yunjun/y43.jpg" alt=""><div class="caption">Lisbon, Portugal, April 2004</div></div>
+      <div class="photo-card"><img src="rob.jpg" alt=""><div class="caption">Adelaide, Australia, February 2004</div></div>
+    </div>
+  </div>
+
+  <!-- 2003 -->
+  <div class="year-section" id="y2003">
+    <h2>2003</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Report/e3.jpg" alt=""><div class="caption">Giza, Egypt, December 2003</div></div>
+      <div class="photo-card"><img src="Report/e4.jpg" alt=""><div class="caption">Cairo, Egypt, piramids visible in the background, December 2003</div></div>
+      <div class="photo-card"><img src="Report/e1.jpg" alt=""><div class="caption">Crossing the desert, near Red Sea, Egypt, December 2003</div></div>
+      <div class="photo-card"><img src="Report/e2.jpg" alt=""><div class="caption">On Nile, near Luxor, Egypt, December 2003</div></div>
+      <div class="photo-card"><img src="Report/trip3.jpg" alt=""><div class="caption">Karnak Temple, Luxor, Egypt, December 2003</div></div>
+      <div class="photo-card"><img src="Report/v19.JPG" alt=""><div class="caption">Cuzco, Peru, December 2003</div></div>
+      <div class="photo-card"><img src="Report/trip2.jpg" alt=""><div class="caption">Cuzco, Peru, December 2003</div></div>
+      <div class="photo-card"><img src="Report/v21.JPG" alt=""><div class="caption">The citadel of Sacsayhuaman, near Cuzco, Peru, December 2003</div></div>
+      <div class="photo-card"><img src="Report/v22.JPG" alt=""><div class="caption">Machu Picchu, Peru, December 2003 (Huayna Picchu in the background)</div></div>
+      <div class="photo-card"><img src="Report/v23.JPG" alt=""><div class="caption">On the top of Huayna Picchu (peak visible on the previous</div></div>
+      <div class="photo-card"><img src="Report/v16.JPG" alt=""><div class="caption">Flying towards Nazca lines, Peru, November 2003</div></div>
+      <div class="photo-card"><img src="Report/v17.JPG" alt=""><div class="caption">Flying over Nazca lines, Peru, November 2003</div></div>
+      <div class="photo-card"><img src="Report/v14.JPG" alt=""><div class="caption">Galapagos, November 2003</div></div>
+      <div class="photo-card"><img src="Report/trip1.jpg" alt=""><div class="caption">Galapagos, November 2003</div></div>
+      <div class="photo-card"><img src="Report/v12.JPG" alt=""><div class="caption">Easter Island, Chile, November 2003</div></div>
+      <div class="photo-card"><img src="Report/v11.JPG" alt=""><div class="caption">Easter Island, Chile, November 2003</div></div>
+      <div class="photo-card"><img src="Report/v13.JPG" alt=""><div class="caption">Building "personal" Moai, Easter Island, Chile, November 2003</div></div>
+      <div class="photo-card"><img src="Report/v10.JPG" alt=""><div class="caption">Santiago, Chile, November 2003</div></div>
+      <div class="photo-card"><img src="Report/dolphin.png" alt=""><div class="caption">Somewhere on the Caribbean Sea, September, 2003</div></div>
+      <div class="photo-card"><img src="Report/barbados.jpg" alt=""><div class="caption">Barbados, infamous September 5th, 2003</div></div>
+      <div class="photo-card"><img src="Report1/2_small.jpg" alt=""><div class="caption">Getting scuba diving certification, Cozumel, Mexico, April 2003</div></div>
+      <div class="photo-card"><img src="Report1/3_small.jpg" alt=""><div class="caption">Bandelier National Monument, New Mexico, March 2003</div></div>
+    </div>
+  </div>
+
+  <!-- 2002 -->
+  <div class="year-section" id="y2002">
+    <h2>2002</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Report1/1_small.jpg" alt=""><div class="caption">UNC-Charlotte, North Carolina, December 2002</div></div>
+      <div class="photo-card"><img src="Report1/flying.jpg" alt=""><div class="caption">A <a href="https://youtu.be/6GX1pFZU4h0">jump</a> from 13,000 feet above the ground, South Carolina, September 2002</div></div>
+      <div class="photo-card"><img src="Report/agreement.jpg" alt=""><div class="caption">Gdansk, Poland, June 2002</div></div>
+      <div class="photo-card"><img src="Report1/walesa.jpg" alt=""><div class="caption">Gdansk, Poland, May 2002</div></div>
+      <div class="photo-card"><img src="Report1/kwas.jpg" alt=""><div class="caption">Receiving the title of Professor from the President of</div></div>
+      <div class="photo-card"><img src="Report1/kwas2.jpg" alt=""><div class="caption">Warsaw, Poland, April 2002</div></div>
+      <div class="photo-card"><img src="Report1/bubu.jpg" alt=""><div class="caption">Charlotte, NC, February, 2002</div></div>
+    </div>
+  </div>
+
+  <!-- 2000–2001 -->
+  <div class="year-section" id="y2000">
+    <h2>2000–2001</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="Report1/vac.jpg" alt=""><div class="caption">Aruba, April 2001</div></div>
+      <div class="photo-card"><img src="Report1/Porsche1.jpg" alt=""><div class="caption">Charlotte, NC, March 2001</div></div>
+      <div class="photo-card"><img src="Report1/Porsche2.jpg" alt=""><div class="caption">Charlotte, NC, March 2001</div></div>
+      <div class="photo-card"><img src="Report1/Porsche3.jpg" alt=""><div class="caption">Charlotte, NC, March 2001</div></div>
+      <div class="photo-card"><img src="Report1/dad.jpg" alt=""><div class="caption">Teotihuacan, Mexico, November 2000</div></div>
+      <div class="photo-card"><img src="Report1/viper.jpg" alt=""><div class="caption">Charlotte, NC, November 2000</div></div>
+      <div class="photo-card"><img src="Report1/car2.jpg" alt=""><div class="caption">Charlotte, NC, November 2000. For more</div></div>
+      <div class="photo-card"><img src="Report1/ushu1.jpg" alt=""><div class="caption">Ushuaia, Tierra del Fuego, The End of the World, October 2000</div></div>
+      <div class="photo-card"><img src="Report1/ushu.jpg" alt=""><div class="caption">Approaching Cape Horn..., October 2000</div></div>
+      <div class="photo-card"><img src="pics/g02.jpg" alt=""><div class="caption">Grand Canion, AZ, July 2000</div></div>
+      <div class="photo-card"><img src="pics/g03.jpg" alt=""><div class="caption">Riviera Casino, Las Vegas, NV, July 2000</div></div>
+      <div class="photo-card"><img src="pics/g01.jpg" alt=""><div class="caption">Las Vegas, NV, July 2000</div></div>
+      <div class="photo-card"><img src="Report2/car.jpg" alt=""><div class="caption">Charlotte, NC, May 2000</div></div>
+      <div class="photo-card"><img src="Report2/apr.jpg" alt=""><div class="caption">Wuhan, China, April 2000</div></div>
+    </div>
+  </div>
+
+  <!-- 1999 -->
+  <div class="year-section" id="y1999">
+    <h2>1999</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="chile/arg2.jpg" alt=""><div class="caption">Valparaiso, Chile, November 1999</div></div>
+      <div class="photo-card"><img src="chile/arg3.jpg" alt=""><div class="caption">Casino, Vina del Mar, Chile, November 1999</div></div>
+      <div class="photo-card"><img src="chile/arg1.jpg" alt=""><div class="caption">Mendoza, Argentina, November 1999</div></div>
+      <div class="photo-card"><img src="chile/arg4.jpg" alt=""><div class="caption">San Luis, Argentina, November 1999</div></div>
+      <div class="photo-card"><img src="chile/arg5.jpg" alt=""><div class="caption">Potrero de las Fumes, Argentina, November 1999</div></div>
+      <div class="photo-card"><img src="raul/p2.jpg" alt=""><div class="caption">Buenos Aires, Argentina, September 1999</div></div>
+      <div class="photo-card"><img src="pics/f18.jpg" alt=""><div class="caption">Aarhus, Denmark, March 1999</div></div>
+      <div class="photo-card"><img src="pics/f02.jpg" alt=""><div class="caption">Warsaw, Poland, June 1999</div></div>
+      <div class="photo-card"><img src="pics/f08.jpg" alt=""><div class="caption">Copenhagen, Denmark, May 1999</div></div>
+      <div class="photo-card"><img src="pics/f12.jpg" alt=""><div class="caption">Heidelberg, Germany, May 1999</div></div>
+      <div class="photo-card"><img src="pics/f05.jpg" alt=""><div class="caption">Aarhus, Denmark, March 1999</div></div>
+    </div>
+  </div>
+
+  <!-- 1998 -->
+  <div class="year-section" id="y1998">
+    <h2>1998</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="pics/f10.jpg" alt=""><div class="caption">Patagonia, Argentina, November 1998</div></div>
+      <div class="photo-card"><img src="pics/f14.jpg" alt=""><div class="caption">Escorial, Spain, July 1998</div></div>
+      <div class="photo-card"><img src="pics/f16.jpg" alt=""><div class="caption">Barcelona, Spain, August 1998</div></div>
+      <div class="photo-card"><img src="pics/f21.jpg" alt=""><div class="caption">Barcelona, Spain, 1998</div></div>
+      <div class="photo-card"><img src="pics/f04.jpg" alt=""><div class="caption">Barcelona, Spain, 1998</div></div>
+      <div class="photo-card"><img src="pics/f17.jpg" alt=""><div class="caption">Granada, Spain, 1998</div></div>
+      <div class="photo-card"><img src="pics/f06.jpg" alt=""><div class="caption">Paris, France, 1998</div></div>
+      <div class="photo-card"><img src="pics/f13.jpg" alt=""><div class="caption">Tours, France, 1998</div></div>
+      <div class="photo-card"><img src="pics/f11.jpg" alt=""><div class="caption">Amsterdam, Netherlands, 1998</div></div>
+      <div class="photo-card"><img src="pics/f03.jpg" alt=""><div class="caption">Orlando, Florida, 1998</div></div>
+      <div class="photo-card"><img src="pics/f01.jpg" alt=""><div class="caption">Anchorage, Alaska, 1998</div></div>
+    </div>
+  </div>
+
+  <!-- 1992–1994 -->
+  <div class="year-section" id="y1992">
+    <h2>1992–1994</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="pics/pic12.jpg" alt=""><div class="caption">Mendoza, Argentina, 1994</div></div>
+      <div class="photo-card"><img src="pics/pic13.jpg" alt=""><div class="caption">Orlando, USA, 1994</div></div>
+      <div class="photo-card"><img src="pics/pic14.jpg" alt=""><div class="caption">Charlotte, USA, 1994</div></div>
+      <div class="photo-card"><img src="pics/pic15.jpg" alt=""><div class="caption">Fatima, Portugal, 1993</div></div>
+      <div class="photo-card"><img src="pics/pic16.jpg" alt=""><div class="caption">Venice, Italy, 1992</div></div>
+      <div class="photo-card"><img src="pics/pic17.jpg" alt=""><div class="caption">Venice, Italy, 1992</div></div>
+      <div class="photo-card"><img src="pics/pic18.jpg" alt=""><div class="caption">Zurich, Switzerland, 1992</div></div>
+      <div class="photo-card"><img src="pics/pic19.jpg" alt=""><div class="caption">Charlotte, USA, 1992</div></div>
+      <div class="photo-card"><img src="pics/pic20.jpg" alt=""><div class="caption">Warsaw, Poland, 1992</div></div>
+    </div>
+  </div>
+
+  <!-- 1989–1991 -->
+  <div class="year-section" id="y1989">
+    <h2>1989–1991</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="pics/pic21.jpg" alt=""><div class="caption">Charlotte, USA, 1991</div></div>
+      <div class="photo-card"><img src="pics/pic22.jpg" alt=""><div class="caption">Warsaw, Poland, 1990</div></div>
+      <div class="photo-card"><img src="pics/pic23.jpg" alt=""><div class="caption">San Francisco, USA, 1989</div></div>
+      <div class="photo-card"><img src="pics/pic24.jpg" alt=""><div class="caption">Hawaii, USA, 1989</div></div>
+    </div>
+  </div>
+
+  <!-- 1988 -->
+  <div class="year-section" id="y1988">
+    <h2>1988</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="pics/pic25.jpg" alt=""><div class="caption">Sydney, Australia, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic26.jpg" alt=""><div class="caption">Sydney, Australia, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic27.jpg" alt=""><div class="caption">Brisbane, Australia, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic28.jpg" alt=""><div class="caption">Brisbane, Australia, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic29.jpg" alt=""><div class="caption">Moeraki, New Zealand, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic30.jpg" alt=""><div class="caption">Picton, New Zealand, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic31.jpg" alt=""><div class="caption">Paraparaumu, New Zealand, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic32.jpg" alt=""><div class="caption">Hong Kong, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic33.jpg" alt=""><div class="caption">Hong Kong, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic34.jpg" alt=""><div class="caption">Hong Kong, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic35.jpg" alt=""><div class="caption">Venice, Italy, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic36.jpg" alt=""><div class="caption">Urbino, Italy, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic37.jpg" alt=""><div class="caption">Urbino, Italy, 1988</div></div>
+      <div class="photo-card"><img src="pics/pic38.jpg" alt=""><div class="caption">Rome, Italy, 1988</div></div>
+    </div>
+  </div>
+
+  <!-- 1986–1987 -->
+  <div class="year-section" id="y1986">
+    <h2>1986–1987</h2>
+    <div class="gallery">
+      <div class="photo-card"><img src="pics/pic39.jpg" alt=""><div class="caption">North Carolina, USA, 1987</div></div>
+      <div class="photo-card"><img src="pics/pic40.jpg" alt=""><div class="caption">Edmonton, Canada, 1987</div></div>
+      <div class="photo-card"><img src="pics/pic41.jpg" alt=""><div class="caption">Wellington, New Zealand, 1987</div></div>
+      <div class="photo-card"><img src="pics/pic42.jpg" alt=""><div class="caption">Wellington, New Zealand, 1986</div></div>
+      <div class="photo-card"><img src="pics/pic43.jpg" alt=""><div class="caption">Heidelberg, Germany, 1986</div></div>
+      <div class="photo-card"><img src="pics/pic44.jpg" alt=""><div class="caption">Waterloo, Belgium, 1986</div></div>
+      <div class="photo-card"><img src="pics/pic45.jpg" alt=""><div class="caption">Stockholm, Sweden, 1986</div></div>
+    </div>
+  </div>
+
+
+
+</div><!-- /content -->
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <span class="lb-close" onclick="closeLB()">✕</span>
+  <span class="lb-nav lb-prev" onclick="lbNav(-1)">‹</span>
+  <img id="lb-img" src="" alt="">
+  <div id="lb-cap" class="lb-caption"></div>
+  <span class="lb-nav lb-next" onclick="lbNav(1)">›</span>
+</div>
+
+<footer>
+  <p><a href="index.html">← Back to main page</a> &nbsp;·&nbsp; &copy; Zbigniew Michalewicz</p>
+</footer>
+
+<script>
+  // Collect all photo cards for lightbox
+  const cards = Array.from(document.querySelectorAll('.photo-card'));
+  let current = 0;
+
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => { current = i; openLB(); });
+  });
+
+  function openLB() {
+    const card = cards[current];
+    document.getElementById('lb-img').src = card.querySelector('img').src;
+    document.getElementById('lb-cap').innerHTML = card.querySelector('.caption').innerHTML;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLB() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  function lbNav(dir) {
+    current = (current + dir + cards.length) % cards.length;
+    openLB();
+  }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLB();
+  });
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLB();
+    if (e.key === 'ArrowRight') lbNav(1);
+    if (e.key === 'ArrowLeft') lbNav(-1);
+  });
+</script>
+</body>
+</html>

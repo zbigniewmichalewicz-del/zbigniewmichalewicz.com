@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zbigniew Michalewicz — Emeritus Professor, Adelaide University</title>
+  <meta name="description" content="Personal website of Prof. Zbigniew Michalewicz — evolutionary computation pioneer, author, entrepreneur, and Emeritus Professor at the Adelaide University.">
+  <style>
+    :root {
+      --navy:   #0f2040;
+      --teal:   #0e7c7b;
+      --teal-l: #12a09e;
+      --gold:   #c9972c;
+      --light:  #f7f8fa;
+      --gray:   #5a6475;
+      --border: #dde3ec;
+      --white:  #ffffff;
+      --radius: 10px;
+      --shadow: 0 4px 24px rgba(15,32,64,.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 17px;
+      line-height: 1.75;
+      color: #1a2235;
+      background: var(--light);
+    }
+
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { color: var(--teal-l); text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+    nav .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 56px;
+    }
+    nav .brand {
+      color: #fff;
+      font-size: 15px;
+      font-style: italic;
+      letter-spacing: .3px;
+      white-space: nowrap;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    nav ul a {
+      color: rgba(255,255,255,.82);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13.5px;
+      font-style: normal;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background .18s, color .18s;
+    }
+    nav ul a:hover {
+      background: rgba(255,255,255,.13);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* ── HERO ── */
+    header.hero {
+      background: linear-gradient(135deg, #4a90c4 0%, #6bb3d9 100%);
+      color: #fff;
+      padding: 72px 24px 64px;
+    }
+    header.hero .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+    header.hero img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid var(--gold);
+      flex-shrink: 0;
+    }
+    header.hero h1 {
+      font-size: 2.6rem;
+      font-weight: normal;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    header.hero .title {
+      color: #fff;
+      font-size: 1.05rem;
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+    header.hero .affil {
+      color: rgba(255,255,255,.72);
+      font-size: .95rem;
+      font-style: normal;
+      line-height: 1.6;
+    }
+    header.hero .contact {
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    header.hero .btn {
+      display: inline-block;
+      padding: 9px 20px;
+      border-radius: 5px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      transition: opacity .18s;
+    }
+    header.hero .btn:hover { opacity: .85; text-decoration: none; }
+    .btn-primary { background: var(--gold); color: #fff; }
+    .btn-outline { background: var(--gold); color: #fff; border: none; }
+
+    /* ── SECTIONS ── */
+    section { padding: 64px 24px; }
+    section:nth-child(even) { background: var(--white); }
+    .inner { max-width: 1100px; margin: 0 auto; }
+
+    h2.sec-title {
+      font-size: 1.7rem;
+      color: var(--navy);
+      margin-bottom: 32px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid var(--teal);
+      display: inline-block;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 48px;
+      align-items: start;
+    }
+    .about-text p { margin-bottom: 18px; color: #2a3448; }
+    .about-highlights {
+      background: linear-gradient(135deg, #4a90c4 0%, #6bb3d9 100%);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .about-highlights h3 {
+      font-size: 1rem;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .about-highlights ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .about-highlights li {
+      font-size: .93rem;
+      line-height: 1.5;
+      color: rgba(255,255,255,.85);
+      padding-left: 18px;
+      position: relative;
+    }
+    .about-highlights li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--teal-l);
+    }
+
+    /* ── AWARDS ── */
+    .award-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .award-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border-left: 4px solid var(--gold);
+      padding: 20px 22px;
+      box-shadow: var(--shadow);
+    }
+    .award-card .year {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .award-card p { font-size: .95rem; line-height: 1.55; }
+
+    /* ── BOOKS ── */
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 28px;
+    }
+    .book-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .book-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(15,32,64,.15);
+    }
+    .book-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      background: #f0f2f5;
+    }
+    .book-card .book-info {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .book-card .book-title {
+      font-size: .95rem;
+      font-weight: bold;
+      color: var(--navy);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .book-card .book-meta {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .82rem;
+      color: var(--gray);
+      flex: 1;
+      margin-bottom: 12px;
+    }
+    .book-card a.book-link {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--teal);
+    }
+
+    /* ── PAPERS ── */
+    .papers-list { display: flex; flex-direction: column; gap: 0; }
+    .paper-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      align-items: baseline;
+    }
+    .paper-item:last-child { border-bottom: none; }
+    .paper-num {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .85rem;
+      color: var(--gray);
+      text-align: right;
+    }
+    .paper-text { font-size: .95rem; line-height: 1.6; color: #2a3448; }
+    .paper-text a { font-weight: 600; }
+
+    /* ── VENTURES ── */
+    .ventures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .venture-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      border-top: 4px solid var(--teal);
+    }
+    .venture-card h3 { color: var(--navy); font-size: 1.1rem; margin-bottom: 8px; }
+    .venture-card .years {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .82rem;
+      color: var(--gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 12px;
+    }
+    .venture-card p { font-size: .93rem; color: var(--gray); line-height: 1.6; }
+
+    /* ── TRAVEL ── */
+    .travel-photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .travel-photos img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 6px;
+      transition: opacity .2s;
+    }
+    .travel-photos img:hover { opacity: .85; }
+    .travel-link {
+      margin-top: 24px;
+      text-align: center;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .95rem;
+    }
+
+    /* ── FAMILY ── */
+    .family-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .family-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      text-align: center;
+    }
+    .family-card h3 { color: var(--navy); margin-bottom: 10px; }
+    .family-card p { font-size: .93rem; color: var(--gray); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.65);
+      text-align: center;
+      padding: 32px 24px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .85rem;
+      line-height: 1.8;
+    }
+    footer a { color: var(--teal-l); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 820px) {
+      header.hero .inner { flex-direction: column; text-align: center; }
+      header.hero .contact { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      header.hero h1 { font-size: 1.9rem; }
+      nav .brand { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="inner">
+    <span class="brand">Prof. Zbigniew Michalewicz</span>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#books">Books</a></li>
+      <li><a href="#papers">Papers</a></li>
+      <li><a href="talks.html">Talks</a></li>
+      <li><a href="#ventures">Ventures</a></li>
+      <li><a href="travel.html">Travel</a></li>
+      <li><a href="#family">Family</a></li>
+      <li><a href="ZM.pdf" target="_blank">CV&nbsp;↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<header class="hero">
+  <div class="inner">
+    <img src="pics/pic02.jpg" alt="Zbigniew Michalewicz">
+    <div>
+      <h1>Zbigniew Michalewicz</h1>
+      <p class="title">Emeritus Professor · Evolutionary Computation Pioneer</p>
+      <p class="affil">
+        School of Computer Science, Adelaide University<br>
+        Adelaide, SA 5005, Australia<br>
+        <a href="mailto:zbigniew.michalewicz@adelaide.edu.au" style="color:rgba(255,255,255,.9)">zbigniew.michalewicz@adelaide.edu.au</a>
+      </p>
+      <div class="contact">
+        <a class="btn btn-primary" href="ZM.pdf" target="_blank">Download CV</a>
+        <a class="btn btn-outline" href="http://www.complexica.com" target="_blank">Complexica ↗</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="inner">
+    <h2 class="sec-title">About</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Zbigniew Michalewicz is Emeritus Professor at the
+          <a href="http://www.cs.adelaide.edu.au/">School of Computer Science</a>,
+          <a href="http://www.adelaide.edu.au/">Adelaide University</a>.
+          He completed his MSc degree at the Technical University of Warsaw in 1974,
+          received his PhD from the Institute of Computer Science, Polish Academy of Sciences in 1981,
+          and holds a Doctor of Science (Habilitation) from the Polish Academy of Science (1997).
+        </p>
+        <p>
+          From 1988 to 2004 he was Professor at the
+          <a href="http://www.uncc.edu/">University of North Carolina at Charlotte</a>.
+          He also holds Professor positions at the
+          <a href="http://www.ipipan.waw.pl/en/">Institute of Computer Science, Polish Academy of Sciences</a>,
+          the <a href="http://www.pjwstk.edu.pl/?lang=en/">Polish-Japanese Institute of Information Technology</a>,
+          an honorary Professorship at Wuhan University (China), and is associated with the
+          <a href="http://sc.snu.ac.kr">Structural Complexity Laboratory</a> at Seoul National University.
+          He is a Fellow of the Australian Computer Society.
+        </p>
+        <p>
+          His research interests span machine learning and evolutionary computation. He has published
+          over 250 technical papers and authored or edited more than a dozen books — several of which
+          became standard texts at universities worldwide, with translations into Chinese, Polish, Greek,
+          and other languages. His work has been featured in <em>TIME Magazine</em>, Newsweek,
+          the New York Times, Forbes, and the Associated Press.
+        </p>
+        <p>
+          He has secured numerous multi-million dollar industry contracts from organisations including
+          General Motors, Ford, Bank of America, the U.S. Department of Defense, and AirLiquide.
+          He was the general chairman of the First IEEE International Conference on Evolutionary
+          Computation (Orlando, 1994) and an invited speaker at scores of international conferences.
+          He served on editorial boards and as associate editor for 12 international journals.
+        </p>
+        <p>
+          In April 2002, he received the title of Professor from the President of Poland,
+          Alexander Kwaśniewski. In 2006 he was appointed Business Ambassador for the
+          State of South Australia. In December 2013, President Bronisław Komorowski awarded him
+          the <em>Order of the Rebirth of Poland (Polonia Restituta)</em> — the second-highest
+          Polish state civilian decoration — for outstanding achievements in education, science,
+          and international relations.
+        </p>
+      </div>
+      <aside>
+        <div class="about-highlights">
+          <h3>Highlights</h3>
+          <ul>
+            <li>PhD, Polish Academy of Sciences, 1981</li>
+            <li>Prof., Univ. of North Carolina at Charlotte, 1988–2004</li>
+            <li>Emeritus Professor, Adelaide University</li>
+            <li>250+ peer-reviewed publications</li>
+            <li>12+ authored / edited books</li>
+            <li>IEEE CIS Evolutionary Computation Pioneer Award, 2019</li>
+            <li>Order of Polonia Restituta (2nd highest Polish civilian honour), 2013</li>
+            <li>Business Ambassador, State of South Australia, 2006</li>
+            <li>Fellow, Australian Computer Society</li>
+            <li>Co-founder &amp; Chief Scientist, Complexica (2014–)</li>
+            <li>Co-founder &amp; CSO, SolveIT Software (2005–2013)</li>
+            <li>Featured in TIME, Newsweek, NYT, Forbes</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ── AWARDS ── -->
+<section id="awards">
+  <div class="inner">
+    <h2 class="sec-title">Awards &amp; Honours</h2>
+    <div class="award-list">
+      <div class="award-card">
+        <div class="year">2019</div>
+        <p><strong>IEEE CIS Evolutionary Computation Pioneer Award</strong> — recognises significant contributions to early concepts and sustained developments in the field of evolutionary computation.</p>
+      </div>
+      <div class="award-card">
+        <div class="year">2013</div>
+        <p><strong>Order of the Rebirth of Poland (Polonia Restituta)</strong> — awarded by the President of Poland for outstanding achievements in education, science, and international relations.</p>
+      </div>
+      <div class="award-card">
+        <div class="year">2012</div>
+        <p><strong>Deloitte Technology Fast 50 — 3rd fastest-growing company in Australia</strong> — SolveIT Software, which Zbigniew co-founded and served as Chief Scientific Officer.</p>
+      </div>
+      <div class="award-card">
+        <div class="year">2006</div>
+        <p><strong>Business Ambassador, State of South Australia</strong> — appointed by the South Australian Government.</p>
+      </div>
+      <div class="award-card">
+        <div class="year">2002</div>
+        <p><strong>Professor title from the President of Poland</strong> — awarded by President Alexander Kwaśniewski at a ceremony in Warsaw.</p>
+      </div>
+      <div class="award-card">
+        <div class="year">1994</div>
+        <p><strong>General Chairman, 1st IEEE International Conference on Evolutionary Computation</strong> — Orlando, Florida — a landmark event that launched the IEEE Evolutionary Computation conference series.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOKS ── -->
+<section id="books">
+  <div class="inner">
+    <h2 class="sec-title">Books</h2>
+    <div class="books-grid">
+
+      <!-- 2021 -->
+      <div class="book-card">
+        <img src="books/AI.jpg" alt="The Rise of Artificial Intelligence">
+        <div class="book-info">
+          <div class="book-title">The Rise of Artificial Intelligence: Real-world Applications for Revenue and Margin Growth</div>
+          <div class="book-meta">with Leonardo Arantes &amp; Matthew Michalewicz · Hybrid Publishers, Melbourne, 2021</div>
+          <a class="book-link" href="https://www.amazon.com/Rise-Artificial-Intelligence-Zbigniew-Michalewicz/dp/1925736628/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2014 -->
+      <div class="book-card">
+        <img src="books/pbl5.jpg" alt="A Guide to Teaching Puzzle-Based Learning">
+        <div class="book-info">
+          <div class="book-title">A Guide to Teaching Puzzle-Based Learning</div>
+          <div class="book-meta">with Edwin F. Meyer, Nick Falkner &amp; Raja Sooriamurthi · Springer, London, 2014</div>
+          <a class="book-link" href="http://www.amazon.com/Teaching-Puzzle-based-Learning-Undergraduate-Computer/dp/144716475X/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2013 Polish PBL -->
+      <div class="book-card">
+        <img src="books/pbl2.jpg" alt="Puzzle-Based Learning (Polish, 2nd ed.)">
+        <div class="book-info">
+          <div class="book-title">Puzzle-Based Learning — Polish translation, 2nd edition</div>
+          <div class="book-meta">PJWSTK, June 2013</div>
+        </div>
+      </div>
+
+      <!-- 2013 Greek Heuristics -->
+      <div class="book-card">
+        <img src="books/bookG.jpg" alt="How to Solve It — Greek translation">
+        <div class="book-info">
+          <div class="book-title">How to Solve It: Modern Heuristics — Greek translation</div>
+          <div class="book-meta">Paschalidis Publishers, Athens, 2013</div>
+        </div>
+      </div>
+
+      <!-- 2012 -->
+      <div class="book-card">
+        <img src="books/cover11.jpg" alt="Variants of Evolutionary Algorithms">
+        <div class="book-info">
+          <div class="book-title">Variants of Evolutionary Algorithms for Real-World Applications</div>
+          <div class="book-meta">ed. with Raymond Chiong &amp; Thomas Weise · Springer, Berlin, 2012</div>
+          <a class="book-link" href="http://www.springer.com/engineering/computational+intelligence+and+complexity/book/978-3-642-23423-1" target="_blank">Springer ↗</a>
+        </div>
+      </div>
+
+      <!-- 2010 Polish PBL -->
+      <div class="book-card">
+        <img src="books/nauczanie.jpg" alt="Puzzle-Based Learning (Polish, 2010)">
+        <div class="book-info">
+          <div class="book-title">Puzzle-Based Learning — Polish translation</div>
+          <div class="book-meta">PJWSTK, June 2010</div>
+        </div>
+      </div>
+
+      <!-- 2008 PBL -->
+      <div class="book-card">
+        <img src="books/pbl.jpg" alt="Puzzle-Based Learning">
+        <div class="book-info">
+          <div class="book-title">Puzzle-Based Learning: An Introduction to Critical Thinking, Mathematics &amp; Problem Solving</div>
+          <div class="book-meta">with Matthew Michalewicz · Hybrid Publishers, Melbourne, 2008</div>
+          <a class="book-link" href="http://www.amazon.com/Puzzle-based-Learning-Introduction-critical-mathematics/dp/1876462639/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2008 Design by Evolution -->
+      <div class="book-card">
+        <img src="books/Design.jpg" alt="Design by Evolution">
+        <div class="book-info">
+          <div class="book-title">Design by Evolution</div>
+          <div class="book-meta">ed. with Philip F. Hingston &amp; Luigi C. Barone · Springer-Verlag, Berlin, 2008</div>
+          <a class="book-link" href="http://www.springer.com/computer/artificial/book/978-3-540-74109-1" target="_blank">Springer ↗</a>
+        </div>
+      </div>
+
+      <!-- 2008 Advances in Metaheuristics -->
+      <div class="book-card">
+        <img src="books/patrick2.jpg" alt="Advances in Metaheuristics for Hard Optimization">
+        <div class="book-info">
+          <div class="book-title">Advances in Metaheuristics for Hard Optimization</div>
+          <div class="book-meta">ed. with Patrick Siarry · Springer-Verlag, Berlin, 2008</div>
+          <a class="book-link" href="http://www.springer.com/east/home/computer/artificial?SGWID=5-147-22-173745030-0" target="_blank">Springer ↗</a>
+        </div>
+      </div>
+
+      <!-- 2007 Winning Credibility 2nd ed -->
+      <div class="book-card">
+        <img src="books/WC2.jpg" alt="Winning Credibility (2nd ed.)">
+        <div class="book-info">
+          <div class="book-title">Winning Credibility: A Guide for Building a Business from Rags to Riches — 2nd edition</div>
+          <div class="book-meta">with Matthew Michalewicz · Hybrid Publishers, Melbourne, 2007</div>
+          <a class="book-link" href="http://www.amazon.com/Winning-Credibility-Matthew-Michalewicz/dp/1876462523/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2007 ABI -->
+      <div class="book-card">
+        <img src="books/ABI.jpg" alt="Adaptive Business Intelligence">
+        <div class="book-info">
+          <div class="book-title">Adaptive Business Intelligence</div>
+          <div class="book-meta">with Martin Schmidt, Matthew Michalewicz &amp; Constantin Chiriac · Springer-Verlag, Berlin, 2007</div>
+          <a class="book-link" href="http://www.adaptivebusinessintelligence.com/" target="_blank">More ↗</a>
+        </div>
+      </div>
+
+      <!-- 2007 Parameter Setting -->
+      <div class="book-card">
+        <img src="books/lobo.jpg" alt="Parameter Setting in Evolutionary Algorithms">
+        <div class="book-info">
+          <div class="book-title">Parameter Setting in Evolutionary Algorithms</div>
+          <div class="book-meta">ed. with Fernando Lobo &amp; Claudio Lima · Springer-Verlag, Berlin, 2007</div>
+          <a class="book-link" href="http://www.springer.com/east/home/computer/artificial?SGWID=5-147-22-173712006-0" target="_blank">Springer ↗</a>
+        </div>
+      </div>
+
+      <!-- 2006 Winning Credibility 1st ed -->
+      <div class="book-card">
+        <img src="books/WinningCredibility.jpg" alt="Winning Credibility (1st ed.)">
+        <div class="book-info">
+          <div class="book-title">Winning Credibility: A Guide for Building a Business from Rags to Riches</div>
+          <div class="book-meta">with Matthew Michalewicz · Hybrid Publishers, Melbourne, July 2006</div>
+          <a class="book-link" href="http://www.credibility.com.au/" target="_blank">More ↗</a>
+        </div>
+      </div>
+
+      <!-- 2006 Polish How to Solve It -->
+      <div class="book-card">
+        <img src="books/jak.jpg" alt="How to Solve It — Polish translation">
+        <div class="book-info">
+          <div class="book-title">How to Solve It: Modern Heuristics — Polish translation</div>
+          <div class="book-meta">WNT, April 2006</div>
+          <a class="book-link" href="http://www.wnt.pl/product.php?action=0&prod_id=710&hot=1" target="_blank">More ↗</a>
+        </div>
+      </div>
+
+      <!-- 2005 Credibility Polish -->
+      <div class="book-card">
+        <img src="books/cover3.jpg" alt="Credibility: The Critical Success Factor (Polish)">
+        <div class="book-info">
+          <div class="book-title">Credibility: The Critical Success Factor — Polish translation</div>
+          <div class="book-meta">with Matthew Michalewicz · 2005</div>
+          <a class="book-link" href="http://www.techniczna.com.pl/skroty/83-89244-44-6.htm" target="_blank">More ↗</a>
+        </div>
+      </div>
+
+      <!-- 2005 Intelligent Media Technology -->
+      <div class="book-card">
+        <img src="books/intel04.jpg" alt="Intelligent Media Technology for Communicative Intelligence">
+        <div class="book-info">
+          <div class="book-title">Intelligent Media Technology for Communicative Intelligence</div>
+          <div class="book-meta">ed. with Leonard Bolc &amp; Toyoaki Nishida · Springer-Verlag, Berlin, 2005</div>
+          <a class="book-link" href="http://www.springer.com/east/home/computer/artificial?SGWID=5-147-22-81654133-0" target="_blank">Springer ↗</a>
+        </div>
+      </div>
+
+      <!-- 2004 How to Solve It 2nd ed -->
+      <div class="book-card">
+        <img src="books/HowToSolveIt2.jpg" alt="How to Solve It: Modern Heuristics (2nd ed.)">
+        <div class="book-info">
+          <div class="book-title">How to Solve It: Modern Heuristics — 2nd edition</div>
+          <div class="book-meta">with David B. Fogel · Springer-Verlag, Berlin, 2004</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/3540224947/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- How to Solve It Chinese -->
+      <div class="book-card">
+        <img src="books/howto.jpg" alt="How to Solve It — Chinese translation">
+        <div class="book-info">
+          <div class="book-title">How to Solve It: Modern Heuristics — Chinese translation</div>
+          <div class="book-meta">with David B. Fogel</div>
+        </div>
+      </div>
+
+      <!-- 2000 How to Solve It 1st ed -->
+      <div class="book-card">
+        <img src="books/HowToSolve.jpg" alt="How to Solve It: Modern Heuristics (1st ed.)">
+        <div class="book-info">
+          <div class="book-title">How to Solve It: Modern Heuristics</div>
+          <div class="book-meta">with David B. Fogel · Springer-Verlag, Berlin, 2000</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/3540660615/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2000 EC Vol 1 -->
+      <div class="book-card">
+        <img src="books/ec1.jpg" alt="Evolutionary Computation: Basic Algorithms and Operators">
+        <div class="book-info">
+          <div class="book-title">Evolutionary Computation: Basic Algorithms and Operators</div>
+          <div class="book-meta">ed. with Thomas Bäck &amp; David B. Fogel · Institute of Physics, London, 2000</div>
+          <a class="book-link" href="http://www.amazon.com/Evolutionary-Computation-Basic-Algorithms-Operators/dp/0750306645/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2000 EC Vol 2 -->
+      <div class="book-card">
+        <img src="books/ec2.jpg" alt="Evolutionary Computation: Advanced Algorithms and Operators">
+        <div class="book-info">
+          <div class="book-title">Evolutionary Computation: Advanced Algorithms and Operators</div>
+          <div class="book-meta">ed. with Thomas Bäck &amp; David B. Fogel · Institute of Physics, London, 2000</div>
+          <a class="book-link" href="http://www.amazon.com/Advanced-Algorithms-Operations-Evolutionary-Computation/dp/0750306653/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2000 GA Chinese -->
+      <div class="book-card">
+        <img src="books/chin.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (Chinese)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — Chinese translation</div>
+          <div class="book-meta">2000</div>
+        </div>
+      </div>
+
+      <!-- 1999 Evolutionary Computation (Eiben) -->
+      <div class="book-card">
+        <img src="books/b02.jpg" alt="Evolutionary Computation (IOS Press)">
+        <div class="book-info">
+          <div class="book-title">Evolutionary Computation</div>
+          <div class="book-meta">ed. with Gusz Eiben · IOS Press, Amsterdam, 1999</div>
+        </div>
+      </div>
+
+      <!-- 1998 GA Korean -->
+      <div class="book-card">
+        <img src="books/b07.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (Korean)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — Korean translation</div>
+          <div class="book-meta">1998</div>
+        </div>
+      </div>
+
+      <!-- 1997 Handbook of EC -->
+      <div class="book-card">
+        <img src="books/b03.jpg" alt="Handbook of Evolutionary Computation">
+        <div class="book-info">
+          <div class="book-title">Handbook of Evolutionary Computation</div>
+          <div class="book-meta">ed. with Thomas Bäck &amp; David B. Fogel · Oxford University Press &amp; IOP, London, 1997</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/0750303921/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 1997 Evolutionary Algorithms in Engineering -->
+      <div class="book-card">
+        <img src="books/b04.jpg" alt="Evolutionary Algorithms in Engineering Applications">
+        <div class="book-info">
+          <div class="book-title">Evolutionary Algorithms in Engineering Applications</div>
+          <div class="book-meta">ed. with Dipankar Dasgupta · Springer-Verlag, Berlin, 1997</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/3540620214/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 1997 GA Polish -->
+      <div class="book-card">
+        <img src="books/b05.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (Polish)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — Polish translation</div>
+          <div class="book-meta">1997</div>
+        </div>
+      </div>
+
+      <!-- 1996 GA 3rd ed -->
+      <div class="book-card">
+        <img src="books/b10.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (3rd ed.)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — 3rd edition</div>
+          <div class="book-meta">Springer-Verlag, Berlin, 1996</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/3540606769/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 1994 GA 2nd ed -->
+      <div class="book-card">
+        <img src="books/b09.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (2nd ed.)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — 2nd edition</div>
+          <div class="book-meta">Springer-Verlag, Berlin, 1994</div>
+        </div>
+      </div>
+
+      <!-- 1992 GA 1st ed -->
+      <div class="book-card">
+        <img src="books/b08.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (1st ed.)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — 1st edition</div>
+          <div class="book-meta">Springer-Verlag, Berlin, 1992</div>
+        </div>
+      </div>
+
+      <!-- 1991 Statistical and Scientific Databases -->
+      <div class="book-card">
+        <img src="books/b01.jpg" alt="Statistical and Scientific Databases">
+        <div class="book-info">
+          <div class="book-title">Statistical and Scientific Databases</div>
+          <div class="book-meta">Ellis Horwood, London, 1991</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/0138506523/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 1990 SSDBM Proceedings -->
+      <div class="book-card">
+        <img src="books/b06.jpg" alt="Proceedings of the 5th SSDBM">
+        <div class="book-info">
+          <div class="book-title">Proceedings of the 5th International Conference on Statistical and Scientific Database Management</div>
+          <div class="book-meta">Springer-Verlag, LNCS No.420, Charlotte, 1990</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/0387523421/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PAPERS ── -->
+<section id="papers">
+  <div class="inner">
+    <h2 class="sec-title">Selected Papers</h2>
+    <div class="papers-list">
+
+      <div class="paper-item">
+        <span class="paper-num">1</span>
+        <span class="paper-text">Michalewicz, Z., Logan, T.D., and Swaminathan, S., <a href="Papers/p1.pdf"><em>Evolutionary Operators for Continuous Convex Parameter Spaces</em></a>, Proc. 3rd Annual Conference on Evolutionary Programming, World Scientific, 1994, pp.84–97.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">2</span>
+        <span class="paper-text">Michalewicz, Z., and Attia, N., <a href="Papers/p2.pdf"><em>Evolutionary Optimization of Constrained Problems</em></a>, Proc. 3rd Annual Conference on Evolutionary Programming, 1994, pp.98–108.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">3</span>
+        <span class="paper-text">Michalewicz, Z., <a href="Papers/p4.pdf"><em>A Hierarchy of Evolution Programs: An Experimental Study</em></a>, Evolutionary Computation, Vol.1, No.1, 1993, pp.51–76.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">4</span>
+        <span class="paper-text">Michalewicz, Z., <a href="Papers/p6.pdf"><em>Evolutionary Computation Techniques for Nonlinear Programming Problems</em></a>, International Transactions in Operational Research, Vol.1, No.2, 1994, pp.223–240.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">5</span>
+        <span class="paper-text">Michalewicz, Z., <a href="Papers/p16.pdf"><em>Genetic Algorithms, Numerical Optimization and Constraints</em></a>, Proc. 6th International Conference on Genetic Algorithms, Pittsburgh, 1995, pp.151–158.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">6</span>
+        <span class="paper-text">Michalewicz, Z., <a href="Papers/p17.pdf"><em>A Survey of Constraint Handling Techniques in Evolutionary Computation Methods</em></a>, Proc. 4th Annual Conference on Evolutionary Programming, MIT Press, 1995, pp.135–155.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">7</span>
+        <span class="paper-text">Michalewicz, Z., <a href="Papers/p20.pdf"><em>Heuristic Methods for Evolutionary Computation Techniques</em></a>, Journal of Heuristics, Vol.1, No.2, 1995, pp.177–206.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">8</span>
+        <span class="paper-text">Michalewicz, Z., Dasgupta, D., Le Riche, R.G., and Schoenauer, M., <a href="Papers/eng.pdf"><em>Evolutionary Algorithms for Constrained Engineering Problems</em></a>, Computers &amp; Industrial Engineering, Vol.30, No.2, 1996, pp.851–870.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">9</span>
+        <span class="paper-text">Michalewicz, Z. and Schoenauer, M., <a href="Papers/p30.pdf"><em>Evolutionary Algorithms for Constrained Parameter Optimization Problems</em></a>, Evolutionary Computation, Vol.4, No.1, 1996, pp.1–32.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">10</span>
+        <span class="paper-text">Xiao, J., Michalewicz, Z., Zhang, L., and Trojanowski, K., <a href="Papers/p31.pdf"><em>Adaptive Evolutionary Planner/Navigator for Mobile Robots</em></a>, IEEE Transactions on Evolutionary Computation, Vol.1, No.1, 1997, pp.18–28.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">11</span>
+        <span class="paper-text">Eiben, A.E., Hinterding, R., and Michalewicz, Z., <a href="Papers/self9.pdf"><em>Parameter Control in Evolutionary Algorithms</em></a>, IEEE Transactions on Evolutionary Computation, Vol.3, No.2, 1999, pp.124–141.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">12</span>
+        <span class="paper-text">Koziel, S. and Michalewicz, Z., <a href="Papers/jec2.pdf"><em>Evolutionary Algorithms, Homomorphous Mappings, and Constrained Parameter Optimization</em></a>, Evolutionary Computation, Vol.7, No.1, 1999, pp.19–44.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">13</span>
+        <span class="paper-text">Smierzchalski, R. and Michalewicz, Z., <a href="Papers/p41.pdf"><em>Modeling of Ship Trajectory in Collision Situations by an Evolutionary Algorithm</em></a>, IEEE Transactions on Evolutionary Computation, Vol.4, No.3, 2000, pp.227–241.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">14</span>
+        <span class="paper-text">Michalewicz, Z., Deb, K., Schmidt, M., and Stidsen, T., <a href="Papers/new.pdf"><em>Test-case Generator for Constrained Parameter Optimization Techniques</em></a>, IEEE Transactions on Evolutionary Computation, Vol.4, No.3, 2000, pp.197–215.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">15</span>
+        <span class="paper-text">Vergara, F.E., Khouja, M. and Michalewicz, Z., <a href="Papers/Material.pdf"><em>An Evolutionary Algorithm for Optimizing Material Flow in Supply Chains</em></a>, Computers &amp; Industrial Engineering, Vol.43, 2002, pp.407–421.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">16</span>
+        <span class="paper-text">Tao, G. and Michalewicz, Z., <a href="Papers/p44.pdf"><em>Inver-over Operator for the TSP</em></a>, Proc. 5th Parallel Problem Solving from Nature, Springer, 1998, pp.803–812.</span>
+      </div>
+      <div class="paper-item">
+        <span class="paper-num">17</span>
+        <span class="paper-text">Leguizamon, G. and Michalewicz, Z., <a href="Papers/as4.pdf"><em>A New Version of Ant System for Subset Problems</em></a>, Proc. Congress on Evolutionary Computation, 1999, pp.1459–1464.</span>
+      </div>
+
+    </div>
+    <p style="margin-top:24px; font-size:.9rem; color:var(--gray);">
+      For a complete list of 250+ publications see the <a href="papers.html">full papers page</a>,
+      the <a href="ZM.pdf">full CV</a>, or
+      <a href="http://scholar.google.com.au/citations?hl=en&view_op=search_authors&mauthors=university+adelaide" target="_blank">Google Scholar</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ── VENTURES ── -->
+<section id="ventures">
+  <div class="inner">
+    <h2 class="sec-title">Industry &amp; Entrepreneurship</h2>
+    <div class="ventures-grid">
+
+      <div class="venture-card">
+        <h3><a href="http://www.complexica.com" target="_blank">Complexica</a></h3>
+        <div class="years">2014 — Present</div>
+        <p>Co-founder and Chief Scientist. A leading provider of Artificial Intelligence software helping large organisations sell more products, improve margins, and make better decisions through automated analytics and decision intelligence.</p>
+      </div>
+
+      <div class="venture-card">
+        <h3>SolveIT Software</h3>
+        <div class="years">2005 — 2013</div>
+        <p>Co-founder and Chief Scientific Officer. Grew the supply-chain optimisation business from zero to ~180 employees and $20M in annual revenue. Ranked 3rd fastest-growing company in Australia (Deloitte, 2012). Acquired by Schneider Electric. Customers included Rio Tinto, BHP Billiton, and Xstrata.</p>
+      </div>
+
+      <div class="venture-card">
+        <h3>Research Contracts</h3>
+        <div class="years">Career-long</div>
+        <p>Secured multi-million dollar contracts from General Motors, Ford Motor Company, Bank of America, U.S. Department of Defense, AirLiquide, PKN Orlen, BB&amp;T, and Dentsu, applying computational intelligence to complex real-world problems.</p>
+      </div>
+
+      <div class="venture-card">
+        <h3><a href="http://www.puzzlebasedlearning.edu.au" target="_blank">Puzzle-Based Learning</a></h3>
+        <div class="years">Methodology</div>
+        <p>Co-creator of the Puzzle-Based Learning educational methodology — a globally adopted approach to teaching critical thinking, mathematics, and problem solving. Adopted at hundreds of universities worldwide.</p>
+        <p style="margin-top:12px;"><a href="https://www.youtube.com/watch?v=GaKuB1lrqtw" target="_blank">Watch video ↗</a></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── TRAVEL ── -->
+<section id="travel">
+  <div class="inner">
+    <h2 class="sec-title">Travels</h2>
+    <p style="margin-bottom:24px; color:var(--gray); font-size:.95rem;">
+      A lifelong passion — visited dozens of countries across every continent.
+      Below are a few highlights; the full gallery covers years from 1986.
+    </p>
+    <div class="travel-photos">
+      <img src="pics/pic00.jpg" alt="Travel photo">
+      <img src="pics/pic01.jpg" alt="Travel photo">
+      <img src="pics/pic03.jpg" alt="Travel photo">
+      <img src="pics/pic04.jpg" alt="Travel photo">
+      <img src="pics/pic05.jpg" alt="Travel photo">
+      <img src="pics/pic06.jpg" alt="Travel photo">
+      <img src="pics/pic08.jpg" alt="Travel photo">
+      <img src="pics/pic09.jpg" alt="Travel photo">
+    </div>
+    <p class="travel-link" style="margin-top:24px;">
+      <a href="travel.html">View full travel gallery — 40 years, 50+ countries →</a>
+    </p>
+  </div>
+</section>
+
+<!-- ── FAMILY ── -->
+<section id="family">
+  <div class="inner">
+    <h2 class="sec-title">Family</h2>
+    <div class="family-grid">
+      <div class="family-card">
+        <h3>Ewa Michalewicz</h3>
+        <p>Zbigniew's wife — a talented fine-art painter based in Adelaide.</p>
+        <p style="margin-top:12px;"><a href="http://www.ewafineart.com.au" target="_blank">ewafineart.com.au ↗</a></p>
+      </div>
+      <div class="family-card">
+        <h3>Matthew Michalewicz</h3>
+        <p>Zbigniew's son — entrepreneur, co-founder of SolveIT Software and Complexica, and author of <em>Life in Half a Second</em>.</p>
+        <p style="margin-top:12px;"><a href="http://www.michalewicz.com.au/" target="_blank">michalewicz.com.au ↗</a> &nbsp;·&nbsp; <a href="http://www.lifeinhalfasecond.com/" target="_blank">Book ↗</a></p>
+      </div>
+      <div class="family-card">
+        <h3>Luiza Michalewicz</h3>
+        <p>Zbigniew's daughter-in-law — a professional photographer based in Adelaide.</p>
+        <p style="margin-top:12px;"><a href="http://photographybyluiza.com.au/" target="_blank">photographybyluiza.com.au ↗</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>
+    &copy; Zbigniew Michalewicz &nbsp;·&nbsp;
+    <a href="mailto:zbigniew.michalewicz@adelaide.edu.au">zbigniew.michalewicz@adelaide.edu.au</a>
+  </p>
+  <p style="margin-top:6px;">
+    <a href="http://www.cs.adelaide.edu.au/">School of Computer Science, Adelaide University</a>
+    &nbsp;·&nbsp;
+    <a href="http://www.complexica.com" target="_blank">Complexica</a>
+    &nbsp;·&nbsp;
+    <a href="ZM.pdf" target="_blank">Full CV (PDF)</a>
+  </p>
+</footer>
+
+</body>
+</html>
