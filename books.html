@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books — Zbigniew Michalewicz</title>
+  <meta name="description" content="Books by Prof. Zbigniew Michalewicz: authored and edited volumes, new editions and translations, 1990–2021.">
+  <style>
+    :root {
+      --navy:#0f2040; --teal:#0e7c7b; --teal-l:#12a09e;
+      --gold:#c9972c; --light:#f7f8fa; --gray:#5a6475;
+      --border:#dde3ec; --white:#ffffff; --radius:8px;
+      --shadow:0 4px 20px rgba(15,32,64,.09);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Georgia','Times New Roman',serif;font-size:16px;line-height:1.75;color:#1a2235;background:var(--light)}
+    a{color:var(--teal);text-decoration:none}
+    a:hover{color:var(--teal-l);text-decoration:underline}
+
+    nav{position:sticky;top:0;z-index:100;background:var(--navy);box-shadow:0 2px 12px rgba(0,0,0,.25)}
+    nav .inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px}
+    nav .brand{color:#fff;font-size:14px;font-style:italic}
+    nav ul{list-style:none;display:flex;gap:4px;flex-wrap:wrap}
+    nav ul a{color:rgba(255,255,255,.82);font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;padding:5px 10px;border-radius:4px;transition:background .18s}
+    nav ul a:hover{background:rgba(255,255,255,.13);color:#fff;text-decoration:none}
+
+    .hero{background:linear-gradient(135deg,var(--navy) 0%,#1b3a5c 100%);color:#fff;padding:52px 24px 44px;text-align:center}
+    .hero h1{font-size:2.1rem;font-weight:normal;margin-bottom:10px}
+    .hero p{color:rgba(255,255,255,.72);font-size:.97rem;max-width:640px;margin:0 auto}
+
+    .content{max-width:1100px;margin:0 auto;padding:40px 24px 64px}
+
+    /* ── BOOKS ── */
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 28px;
+    }
+    .book-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .book-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(15,32,64,.15);
+    }
+    .book-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      background: #f0f2f5;
+    }
+    .book-card .book-info {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .book-card .book-title {
+      font-size: .95rem;
+      font-weight: bold;
+      color: var(--navy);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .book-card .book-meta {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .82rem;
+      color: var(--gray);
+      flex: 1;
+      margin-bottom: 12px;
+    }
+    .book-card a.book-link {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--teal);
+    }
+
+    footer{background:var(--navy);color:rgba(255,255,255,.65);text-align:center;padding:28px 24px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:.82rem;line-height:1.8}
+    footer a{color:var(--teal-l)}
+
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <span class="brand">Prof. Zbigniew Michalewicz</span>
+    <ul>
+      <li><a href="index.html">← Home</a></li>
+      <li><a href="papers.html">Papers</a></li>
+      <li><a href="talks.html">Talks</a></li>
+      <li><a href="ZM.pdf" target="_blank">CV ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Books</h1>
+  <p>32 books, editions and translations on evolutionary computation, heuristics, puzzle-based learning, business and artificial intelligence, 1990 to 2021.</p>
+</div>
+
+<div class="content">
+  <div class="books-grid">
+      <!-- 2021 -->
+      <div class="book-card">
+        <img src="books/AI.jpg" alt="The Rise of Artificial Intelligence">
+        <div class="book-info">
+          <div class="book-title">The Rise of Artificial Intelligence: Real-world Applications for Revenue and Margin Growth</div>
+          <div class="book-meta">with Leonardo Arantes &amp; Matthew Michalewicz · Hybrid Publishers, Melbourne, 2021</div>
+          <a class="book-link" href="https://www.amazon.com/Rise-Artificial-Intelligence-Zbigniew-Michalewicz/dp/1925736628/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2014 -->
+      <div class="book-card">
+        <img src="books/pbl5.jpg" alt="A Guide to Teaching Puzzle-Based Learning">
+        <div class="book-info">
+          <div class="book-title">A Guide to Teaching Puzzle-Based Learning</div>
+          <div class="book-meta">with Edwin F. Meyer, Nick Falkner &amp; Raja Sooriamurthi · Springer, London, 2014</div>
+          <a class="book-link" href="http://www.amazon.com/Teaching-Puzzle-based-Learning-Undergraduate-Computer/dp/144716475X/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2013 Polish PBL -->
+      <div class="book-card">
+        <img src="books/pbl2.jpg" alt="Puzzle-Based Learning (Polish, 2nd ed.)">
+        <div class="book-info">
+          <div class="book-title">Puzzle-Based Learning — Polish translation, 2nd edition</div>
+          <div class="book-meta">PJWSTK, June 2013</div>
+        </div>
+      </div>
+
+      <!-- 2013 Greek Heuristics -->
+      <div class="book-card">
+        <img src="books/bookG.jpg" alt="How to Solve It — Greek translation">
+        <div class="book-info">
+          <div class="book-title">How to Solve It: Modern Heuristics — Greek translation</div>
+          <div class="book-meta">Paschalidis Publishers, Athens, 2013</div>
+        </div>
+      </div>
+
+      <!-- 2012 -->
+      <div class="book-card">
+        <img src="books/cover11.jpg" alt="Variants of Evolutionary Algorithms">
+        <div class="book-info">
+          <div class="book-title">Variants of Evolutionary Algorithms for Real-World Applications</div>
+          <div class="book-meta">ed. with Raymond Chiong &amp; Thomas Weise · Springer, Berlin, 2012</div>
+          <a class="book-link" href="http://www.springer.com/engineering/computational+intelligence+and+complexity/book/978-3-642-23423-1" target="_blank">Springer ↗</a>
+        </div>
+      </div>
+
+      <!-- 2010 Polish PBL -->
+      <div class="book-card">
+        <img src="books/nauczanie.jpg" alt="Puzzle-Based Learning (Polish, 2010)">
+        <div class="book-info">
+          <div class="book-title">Puzzle-Based Learning — Polish translation</div>
+          <div class="book-meta">PJWSTK, June 2010</div>
+        </div>
+      </div>
+
+      <!-- 2008 PBL -->
+      <div class="book-card">
+        <img src="books/pbl.jpg" alt="Puzzle-Based Learning">
+        <div class="book-info">
+          <div class="book-title">Puzzle-Based Learning: An Introduction to Critical Thinking, Mathematics &amp; Problem Solving</div>
+          <div class="book-meta">with Matthew Michalewicz · Hybrid Publishers, Melbourne, 2008</div>
+          <a class="book-link" href="http://www.amazon.com/Puzzle-based-Learning-Introduction-critical-mathematics/dp/1876462639/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2008 Design by Evolution -->
+      <div class="book-card">
+        <img src="books/Design.jpg" alt="Design by Evolution">
+        <div class="book-info">
+          <div class="book-title">Design by Evolution</div>
+          <div class="book-meta">ed. with Philip F. Hingston &amp; Luigi C. Barone · Springer-Verlag, Berlin, 2008</div>
+          <a class="book-link" href="http://www.springer.com/computer/artificial/book/978-3-540-74109-1" target="_blank">Springer ↗</a>
+        </div>
+      </div>
+
+      <!-- 2008 Advances in Metaheuristics -->
+      <div class="book-card">
+        <img src="books/patrick2.jpg" alt="Advances in Metaheuristics for Hard Optimization">
+        <div class="book-info">
+          <div class="book-title">Advances in Metaheuristics for Hard Optimization</div>
+          <div class="book-meta">ed. with Patrick Siarry · Springer-Verlag, Berlin, 2008</div>
+          <a class="book-link" href="http://www.springer.com/east/home/computer/artificial?SGWID=5-147-22-173745030-0" target="_blank">Springer ↗</a>
+        </div>
+      </div>
+
+      <!-- 2007 Winning Credibility 2nd ed -->
+      <div class="book-card">
+        <img src="books/WC2.jpg" alt="Winning Credibility (2nd ed.)">
+        <div class="book-info">
+          <div class="book-title">Winning Credibility: A Guide for Building a Business from Rags to Riches — 2nd edition</div>
+          <div class="book-meta">with Matthew Michalewicz · Hybrid Publishers, Melbourne, 2007</div>
+          <a class="book-link" href="http://www.amazon.com/Winning-Credibility-Matthew-Michalewicz/dp/1876462523/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2007 ABI -->
+      <div class="book-card">
+        <img src="books/ABI.jpg" alt="Adaptive Business Intelligence">
+        <div class="book-info">
+          <div class="book-title">Adaptive Business Intelligence</div>
+          <div class="book-meta">with Martin Schmidt, Matthew Michalewicz &amp; Constantin Chiriac · Springer-Verlag, Berlin, 2007</div>
+          <a class="book-link" href="http://www.adaptivebusinessintelligence.com/" target="_blank">More ↗</a>
+        </div>
+      </div>
+
+      <!-- 2007 Parameter Setting -->
+      <div class="book-card">
+        <img src="books/lobo.jpg" alt="Parameter Setting in Evolutionary Algorithms">
+        <div class="book-info">
+          <div class="book-title">Parameter Setting in Evolutionary Algorithms</div>
+          <div class="book-meta">ed. with Fernando Lobo &amp; Claudio Lima · Springer-Verlag, Berlin, 2007</div>
+          <a class="book-link" href="http://www.springer.com/east/home/computer/artificial?SGWID=5-147-22-173712006-0" target="_blank">Springer ↗</a>
+        </div>
+      </div>
+
+      <!-- 2006 Winning Credibility 1st ed -->
+      <div class="book-card">
+        <img src="books/WinningCredibility.jpg" alt="Winning Credibility (1st ed.)">
+        <div class="book-info">
+          <div class="book-title">Winning Credibility: A Guide for Building a Business from Rags to Riches</div>
+          <div class="book-meta">with Matthew Michalewicz · Hybrid Publishers, Melbourne, July 2006</div>
+          <a class="book-link" href="http://www.credibility.com.au/" target="_blank">More ↗</a>
+        </div>
+      </div>
+
+      <!-- 2006 Polish How to Solve It -->
+      <div class="book-card">
+        <img src="books/jak.jpg" alt="How to Solve It — Polish translation">
+        <div class="book-info">
+          <div class="book-title">How to Solve It: Modern Heuristics — Polish translation</div>
+          <div class="book-meta">WNT, April 2006</div>
+          <a class="book-link" href="http://www.wnt.pl/product.php?action=0&prod_id=710&hot=1" target="_blank">More ↗</a>
+        </div>
+      </div>
+
+      <!-- 2005 Credibility Polish -->
+      <div class="book-card">
+        <img src="books/cover3.jpg" alt="Credibility: The Critical Success Factor (Polish)">
+        <div class="book-info">
+          <div class="book-title">Credibility: The Critical Success Factor — Polish translation</div>
+          <div class="book-meta">with Matthew Michalewicz · 2005</div>
+          <a class="book-link" href="http://www.techniczna.com.pl/skroty/83-89244-44-6.htm" target="_blank">More ↗</a>
+        </div>
+      </div>
+
+      <!-- 2005 Intelligent Media Technology -->
+      <div class="book-card">
+        <img src="books/intel04.jpg" alt="Intelligent Media Technology for Communicative Intelligence">
+        <div class="book-info">
+          <div class="book-title">Intelligent Media Technology for Communicative Intelligence</div>
+          <div class="book-meta">ed. with Leonard Bolc &amp; Toyoaki Nishida · Springer-Verlag, Berlin, 2005</div>
+          <a class="book-link" href="http://www.springer.com/east/home/computer/artificial?SGWID=5-147-22-81654133-0" target="_blank">Springer ↗</a>
+        </div>
+      </div>
+
+      <!-- 2004 How to Solve It 2nd ed -->
+      <div class="book-card">
+        <img src="books/HowToSolveIt2.jpg" alt="How to Solve It: Modern Heuristics (2nd ed.)">
+        <div class="book-info">
+          <div class="book-title">How to Solve It: Modern Heuristics — 2nd edition</div>
+          <div class="book-meta">with David B. Fogel · Springer-Verlag, Berlin, 2004</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/3540224947/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- How to Solve It Chinese -->
+      <div class="book-card">
+        <img src="books/howto.jpg" alt="How to Solve It — Chinese translation">
+        <div class="book-info">
+          <div class="book-title">How to Solve It: Modern Heuristics — Chinese translation</div>
+          <div class="book-meta">with David B. Fogel</div>
+        </div>
+      </div>
+
+      <!-- 2000 How to Solve It 1st ed -->
+      <div class="book-card">
+        <img src="books/HowToSolve.jpg" alt="How to Solve It: Modern Heuristics (1st ed.)">
+        <div class="book-info">
+          <div class="book-title">How to Solve It: Modern Heuristics</div>
+          <div class="book-meta">with David B. Fogel · Springer-Verlag, Berlin, 2000</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/3540660615/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2000 EC Vol 1 -->
+      <div class="book-card">
+        <img src="books/ec1.jpg" alt="Evolutionary Computation: Basic Algorithms and Operators">
+        <div class="book-info">
+          <div class="book-title">Evolutionary Computation: Basic Algorithms and Operators</div>
+          <div class="book-meta">ed. with Thomas Bäck &amp; David B. Fogel · Institute of Physics, London, 2000</div>
+          <a class="book-link" href="http://www.amazon.com/Evolutionary-Computation-Basic-Algorithms-Operators/dp/0750306645/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2000 EC Vol 2 -->
+      <div class="book-card">
+        <img src="books/ec2.jpg" alt="Evolutionary Computation: Advanced Algorithms and Operators">
+        <div class="book-info">
+          <div class="book-title">Evolutionary Computation: Advanced Algorithms and Operators</div>
+          <div class="book-meta">ed. with Thomas Bäck &amp; David B. Fogel · Institute of Physics, London, 2000</div>
+          <a class="book-link" href="http://www.amazon.com/Advanced-Algorithms-Operations-Evolutionary-Computation/dp/0750306653/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 2000 GA Chinese -->
+      <div class="book-card">
+        <img src="books/chin.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (Chinese)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — Chinese translation</div>
+          <div class="book-meta">2000</div>
+        </div>
+      </div>
+
+      <!-- 1999 Evolutionary Computation (Eiben) -->
+      <div class="book-card">
+        <img src="books/b02.jpg" alt="Evolutionary Computation (IOS Press)">
+        <div class="book-info">
+          <div class="book-title">Evolutionary Computation</div>
+          <div class="book-meta">ed. with Gusz Eiben · IOS Press, Amsterdam, 1999</div>
+        </div>
+      </div>
+
+      <!-- 1998 GA Korean -->
+      <div class="book-card">
+        <img src="books/b07.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (Korean)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — Korean translation</div>
+          <div class="book-meta">1998</div>
+        </div>
+      </div>
+
+      <!-- 1997 Handbook of EC -->
+      <div class="book-card">
+        <img src="books/b03.jpg" alt="Handbook of Evolutionary Computation">
+        <div class="book-info">
+          <div class="book-title">Handbook of Evolutionary Computation</div>
+          <div class="book-meta">ed. with Thomas Bäck &amp; David B. Fogel · Oxford University Press &amp; IOP, London, 1997</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/0750303921/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 1997 Evolutionary Algorithms in Engineering -->
+      <div class="book-card">
+        <img src="books/b04.jpg" alt="Evolutionary Algorithms in Engineering Applications">
+        <div class="book-info">
+          <div class="book-title">Evolutionary Algorithms in Engineering Applications</div>
+          <div class="book-meta">ed. with Dipankar Dasgupta · Springer-Verlag, Berlin, 1997</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/3540620214/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 1997 GA Polish -->
+      <div class="book-card">
+        <img src="books/b05.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (Polish)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — Polish translation</div>
+          <div class="book-meta">1997</div>
+        </div>
+      </div>
+
+      <!-- 1996 GA 3rd ed -->
+      <div class="book-card">
+        <img src="books/b10.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (3rd ed.)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — 3rd edition</div>
+          <div class="book-meta">Springer-Verlag, Berlin, 1996</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/3540606769/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 1994 GA 2nd ed -->
+      <div class="book-card">
+        <img src="books/b09.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (2nd ed.)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — 2nd edition</div>
+          <div class="book-meta">Springer-Verlag, Berlin, 1994</div>
+        </div>
+      </div>
+
+      <!-- 1992 GA 1st ed -->
+      <div class="book-card">
+        <img src="books/b08.jpg" alt="Genetic Algorithms + Data Structures = Evolution Programs (1st ed.)">
+        <div class="book-info">
+          <div class="book-title">Genetic Algorithms + Data Structures = Evolution Programs — 1st edition</div>
+          <div class="book-meta">Springer-Verlag, Berlin, 1992</div>
+        </div>
+      </div>
+
+      <!-- 1991 Statistical and Scientific Databases -->
+      <div class="book-card">
+        <img src="books/b01.jpg" alt="Statistical and Scientific Databases">
+        <div class="book-info">
+          <div class="book-title">Statistical and Scientific Databases</div>
+          <div class="book-meta">Ellis Horwood, London, 1991</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/0138506523/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+
+      <!-- 1990 SSDBM Proceedings -->
+      <div class="book-card">
+        <img src="books/b06.jpg" alt="Proceedings of the 5th SSDBM">
+        <div class="book-info">
+          <div class="book-title">Proceedings of the 5th International Conference on Statistical and Scientific Database Management</div>
+          <div class="book-meta">Springer-Verlag, LNCS No.420, Charlotte, 1990</div>
+          <a class="book-link" href="http://www.amazon.com/exec/obidos/ASIN/0387523421/" target="_blank">Amazon ↗</a>
+        </div>
+      </div>
+  </div>
+</div>
+
+<footer>
+  <p><a href="index.html">← Home</a> &nbsp;·&nbsp; <a href="papers.html">Papers</a> &nbsp;·&nbsp; <a href="talks.html">Talks</a> &nbsp;·&nbsp; &copy; Zbigniew Michalewicz</p>
+</footer>
+
+</body>
+</html>
